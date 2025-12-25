@@ -1,0 +1,47 @@
+<div class="auth-layout">
+
+    <!-- Left Side: Brand & Welcome -->
+    <div class="brand-panel">
+        <div class="brand-content">
+            <mat-icon class="brand-icon">account_balance</mat-icon>
+            <h1>Neighborhood<br>Help Portal</h1>
+            <p>The official community support system connecting residents with trusted helpers.</p>
+        </div>
+    </div>
+
+    <!-- Right Side: Login Form -->
+    <div class="form-panel">
+        <div class="form-container">
+            <h2>Welcome Back</h2>
+            <p class="subtitle">Please enter your credentials to access the portal.</p>
+
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Email Address</mat-label>
+                    <input matInput formControlName="email" type="email">
+                    <mat-icon matSuffix>email</mat-icon>
+                    <mat-error *ngIf="loginForm.get('email')?.hasError('required')">Email is required</mat-error>
+                    <mat-error *ngIf="loginForm.get('email')?.hasError('email')">Please enter a valid email</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Password</mat-label>
+                    <input matInput formControlName="password" type="password">
+                    <mat-icon matSuffix>lock</mat-icon>
+                    <mat-error *ngIf="loginForm.get('password')?.hasError('required')">Password is required</mat-error>
+                </mat-form-field>
+
+                <button mat-flat-button color="primary" type="submit" [disabled]="loginForm.invalid || loading"
+                    class="full-width submit-btn">
+                    {{ loading ? 'Authenticating...' : 'Sign In' }}
+                </button>
+            </form>
+
+            <div class="auth-footer">
+                <span>New Resident or Helper?</span>
+                <a routerLink="/register">Create an Account</a>
+            </div>
+        </div>
+    </div>
+
+</div>

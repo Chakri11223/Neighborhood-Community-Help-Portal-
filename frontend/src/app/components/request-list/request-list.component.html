@@ -1,0 +1,50 @@
+<div class="list-container">
+    <div class="header">
+        <h1>{{ userRole === 'Resident' ? 'My Requests' : 'Community Requests' }}</h1>
+        <button mat-raised-button color="primary" routerLink="/requests/new" *ngIf="userRole === 'Resident'">
+            <mat-icon>add</mat-icon> Post New Request
+        </button>
+    </div>
+
+    <div *ngIf="loading" class="spinner-container">
+        <mat-spinner diameter="50"></mat-spinner>
+    </div>
+
+    <div *ngIf="!loading && requests.length === 0" class="empty-state">
+        <p>No requests found.</p>
+    </div>
+
+    <div class="grid" *ngIf="!loading && requests.length > 0">
+        <mat-card *ngFor="let req of requests" class="request-card">
+            <mat-card-header>
+                <div mat-card-avatar class="avatar-placeholder">
+                    <mat-icon>person</mat-icon>
+                </div>
+                <mat-card-title>{{ req.title }}</mat-card-title>
+                <mat-card-subtitle>{{ req.created_at | date }} • {{ req.category }}</mat-card-subtitle>
+            </mat-card-header>
+
+            <mat-card-content>
+                <p class="description">{{ req.description | slice:0:100 }}{{ req.description.length > 100 ? '...' : ''
+                    }}</p>
+
+                <div class="chips">
+                    <mat-chip-set>
+                        <mat-chip [color]="getStatusColor(req.status)" highlighted>{{ req.status }}</mat-chip>
+                        <mat-chip *ngIf="req.helper_name" class="helper-chip">By: {{ req.helper_name }}</mat-chip>
+                    </mat-chip-set>
+                </div>
+            </mat-card-content>
+
+            <mat-card-actions align="end">
+                <button mat-button color="primary" [routerLink]="['/requests', req.id, 'status']">
+                    View Details
+                </button>
+                <button mat-icon-button color="warn" *ngIf="userRole === 'Resident'" (click)="onDelete(req)"
+                    title="Delete Request">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>

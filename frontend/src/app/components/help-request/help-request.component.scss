@@ -1,0 +1,26 @@
+.request-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+mat-card {
+    max-width: 600px;
+    width: 100%;
+    padding: 20px;
+}
+
+mat-card-title {
+    margin-bottom: 20px;
+    display: block;
+}
+
+.full-width {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+textarea {
+    resize: vertical;
+}

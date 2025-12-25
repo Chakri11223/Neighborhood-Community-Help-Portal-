@@ -1,0 +1,102 @@
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+// Logo and Titles
+.logo-area {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-icon {
+  transform: scale(1.5);
+}
+
+.titles {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+
+  .main-title {
+    font-size: 1.2rem;
+    font-weight: 500;
+  }
+
+  .sub-title {
+    font-size: 0.65rem;
+    opacity: 0.9;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.content {
+  padding: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+  flex: 1; // Pushes footer down
+}
+
+.welcome-text {
+  margin-right: 16px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.active {
+  background: rgba(255, 255, 255, 0.15);
+  border-bottom: 3px solid #ffd740; // match accent roughly
+}
+
+mat-toolbar {
+  // The color is handled by global theme (primary = navy), 
+  // but we added .gov-header-bar in styles.scss for the border.
+  padding: 0 24px;
+  gap: 16px; // Add spacing between items (Login/Register)
+
+  .nav-switch-btn {
+    color: #ffd740 !important;
+    border-color: rgba(255, 215, 64, 0.5) !important;
+    margin: 0 8px;
+
+    mat-icon {
+      margin-right: 4px;
+    }
+
+    &:hover {
+      background-color: rgba(255, 215, 64, 0.1);
+    }
+  }
+}
+
+// Official Footer
+.gov-footer {
+  background-color: #263238; // Dark Blue Grey
+  color: white;
+  padding: 20px 0;
+  text-align: center;
+  margin-top: auto;
+  border-top: 4px solid #ffd740; // Accent color
+
+  .footer-content {
+    font-size: 0.9rem;
+
+    p {
+      margin: 5px 0;
+    }
+  }
+
+  .footer-links {
+    font-size: 0.8rem;
+    opacity: 0.7;
+  }
+}

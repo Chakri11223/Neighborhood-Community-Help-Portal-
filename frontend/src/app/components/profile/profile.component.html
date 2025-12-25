@@ -1,0 +1,74 @@
+<div class="profile-container" *ngIf="user">
+
+    <div class="profile-card">
+        <!-- Hero Header -->
+        <div class="profile-header">
+            <div class="avatar-circle">
+                <mat-icon>person</mat-icon>
+            </div>
+            <div class="header-info">
+                <h1>{{ user.name }}</h1>
+                <span class="role-badge" [ngClass]="user.role.toLowerCase()">
+                    {{ user.role }}
+                </span>
+            </div>
+            <button mat-stroked-button color="basic" class="switch-role-btn" (click)="onSwitchRole()">
+                Switch to {{ user.role === 'Resident' ? 'Helper' : 'Resident' }}
+            </button>
+        </div>
+
+        <!-- Details Grid -->
+        <div class="profile-content">
+            <h2>Personal Information</h2>
+            <div class="info-grid">
+
+                <div class="info-item">
+                    <div class="icon-box">
+                        <mat-icon>email</mat-icon>
+                    </div>
+                    <div class="info-text">
+                        <label>Email Address</label>
+                        <span>{{ user.email }}</span>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="icon-box">
+                        <mat-icon>phone</mat-icon>
+                    </div>
+                    <div class="info-text">
+                        <label>Contact Number</label>
+                        <span>{{ user.contact_info || 'Not Provided' }}</span>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="icon-box">
+                        <mat-icon>place</mat-icon>
+                    </div>
+                    <div class="info-text">
+                        <label>Location</label>
+                        <span>{{ user.location || 'Not Provided' }}</span>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="icon-box">
+                        <mat-icon>verified_user</mat-icon>
+                    </div>
+                    <div class="info-text">
+                        <label>Account Status</label>
+                        <span class="status-active">Active Member</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ID Card Footer look -->
+        <div class="profile-footer">
+            <p>Official ID: #{{ user.id | number:'4.0' }}</p>
+        </div>
+    </div>
+
+</div>

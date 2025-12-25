@@ -1,0 +1,50 @@
+<div class="app-container">
+
+  <mat-toolbar color="primary" class="gov-header-bar">
+    <div class="logo-area">
+      <mat-icon class="logo-icon">account_balance</mat-icon>
+      <div class="titles">
+        <span class="main-title">Neighborhood Help Portal</span>
+        <span class="sub-title">Official Community Support System</span>
+      </div>
+    </div>
+
+    <span class="spacer"></span>
+
+    <ng-container *ngIf="authService.currentUser$ | async as user; else loginLinks">
+      <span class="welcome-text">Welcome, {{ user.name }} ({{ user.role }})</span>
+
+      <button mat-button routerLink="/requests" routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact: true}">Requests</button>
+      <button mat-button routerLink="/requests/new" *ngIf="user.role === 'Resident'" routerLinkActive="active">New
+        Request</button>
+
+      <button mat-stroked-button class="nav-switch-btn" (click)="onSwitchRole()">
+        <mat-icon>swap_horiz</mat-icon>
+        {{ user.role === 'Resident' ? 'Helper' : 'Resident' }}
+      </button>
+
+      <button mat-button routerLink="/profile" routerLinkActive="active">Profile</button>
+      <button mat-icon-button (click)="logout()" title="Logout">
+        <mat-icon>logout</mat-icon>
+      </button>
+    </ng-container>
+
+    <ng-template #loginLinks>
+      <button mat-button routerLink="/login" routerLinkActive="active">Login</button>
+      <button mat-flat-button color="accent" routerLink="/register">Register</button>
+    </ng-template>
+  </mat-toolbar>
+
+  <main class="content">
+    <router-outlet></router-outlet>
+  </main>
+
+  <footer class="gov-footer">
+    <div class="footer-content">
+      <p>&copy; 2024 Neighborhood Help Portal. All rights reserved.</p>
+      <p class="footer-links">Privacy Policy | Terms of Service | Contact Support</p>
+    </div>
+  </footer>
+
+</div>

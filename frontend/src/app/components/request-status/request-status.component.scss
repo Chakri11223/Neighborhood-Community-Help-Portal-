@@ -1,0 +1,45 @@
+.status-container {
+    display: flex;
+    justify-content: center;
+    padding: 24px;
+}
+
+mat-card {
+    max-width: 600px;
+    width: 100%;
+}
+
+.status-badge {
+    margin-bottom: 16px;
+}
+
+.description {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 24px;
+}
+
+.info-section {
+    padding: 16px 0;
+
+    h3 {
+        font-size: 1rem;
+        color: #666;
+        margin-bottom: 12px;
+    }
+
+    p {
+        margin: 8px 0;
+    }
+}
+
+.warning-box {
+    background-color: #fff3e0;
+    color: #e65100;
+    padding: 12px;
+    border-radius: 4px;
+    text-align: center;
+    margin-top: 16px;
+    font-weight: 500;
+    border: 1px solid #ffe0b2;
+}

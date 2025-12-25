@@ -1,0 +1,51 @@
+<div class="status-container" *ngIf="request">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>{{ request.title }}</mat-card-title>
+            <mat-card-subtitle>{{ request.category }} • Posted on {{ request.created_at | date:'medium'
+                }}</mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+            <div class="status-badge">
+                <mat-chip-set>
+                    <mat-chip highlighted color="accent">{{ request.status }}</mat-chip>
+                </mat-chip-set>
+            </div>
+
+            <p class="description">{{ request.description }}</p>
+
+            <mat-divider></mat-divider>
+
+            <div class="info-section">
+                <h3>Details</h3>
+                <p *ngIf="request.attachments"><strong>Attachments:</strong> {{ request.attachments }}</p>
+                <p *ngIf="request.helper_name"><strong>Accepted by:</strong> {{ request.helper_name }}</p>
+            </div>
+
+            <!-- Self-Request Warning -->
+            <div class="warning-box" *ngIf="isOwnRequest && userRole === 'Helper'">
+                <p>It was requested by you, so wait until somebody responds.</p>
+            </div>
+        </mat-card-content>
+
+        <mat-card-actions align="end">
+            <button mat-button (click)="loadRequest(request.id)">Refresh</button>
+
+            <!-- Helper Actions -->
+            <button mat-raised-button color="primary" *ngIf="canAccept" (click)="onAccept()">
+                Accept Request
+            </button>
+
+            <button mat-raised-button color="primary"
+                *ngIf="canComplete || (request.status === 'Accepted' && request.helper_id === userId)"
+                (click)="onNextAction()">
+                {{ nextActionLabel }}
+            </button>
+        </mat-card-actions>
+    </mat-card>
+</div>
+
+<div class="loading" *ngIf="loading">
+    Loading...
+</div>

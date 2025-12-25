@@ -1,0 +1,168 @@
+@use '@angular/material' as mat;
+
+.profile-container {
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+    background-color: #f5f7fa;
+    min-height: 80vh;
+}
+
+.profile-card {
+    max-width: 600px;
+    width: 100%;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+}
+
+// --- Header ---
+.profile-header {
+    background-color: #1a237e; // Navy
+    color: white;
+    padding: 32px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap; // Responsive wrapping
+
+    .switch-role-btn {
+        margin-left: auto;
+        color: #ffd740 !important; // Gold/Yellow
+        border: 1px solid rgba(255, 215, 64, 0.6) !important;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+
+        &:hover {
+            background-color: rgba(255, 215, 64, 0.1);
+        }
+    }
+
+    .avatar-circle {
+        width: 80px;
+        height: 80px;
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        mat-icon {
+            font-size: 40px;
+            width: 40px;
+            height: 40px;
+        }
+    }
+
+    .header-info {
+        h1 {
+            margin: 0 0 8px 0;
+            font-size: 1.8rem;
+            font-weight: 500;
+        }
+
+        .role-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+            background-color: rgba(255, 255, 255, 0.15);
+
+            &.helper {
+                background-color: #ffb300; // Gold for helper
+                color: #000;
+            }
+
+            &.resident {
+                background-color: #4caf50; // Greenish for resident? Or keep blue/white theme
+                background-color: white;
+                color: #1a237e;
+            }
+        }
+    }
+}
+
+// --- Content ---
+.profile-content {
+    padding: 32px;
+
+    h2 {
+        color: #666;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 24px;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 8px;
+    }
+
+    .info-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+
+        @media (max-width: 600px) {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .info-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+
+        .icon-box {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #1a237e;
+        }
+
+        .info-text {
+            display: flex;
+            flex-direction: column;
+
+            label {
+                font-size: 0.8rem;
+                color: #888;
+                margin-bottom: 4px;
+            }
+
+            span {
+                font-size: 1rem;
+                font-weight: 500;
+                color: #333;
+                word-break: break-all;
+            }
+
+            .status-active {
+                color: #2e7d32; // Green
+            }
+        }
+    }
+}
+
+// --- Footer ---
+.profile-footer {
+    background-color: #f9fafb;
+    padding: 12px 32px;
+    border-top: 1px solid #eee;
+    text-align: right;
+
+    p {
+        margin: 0;
+        font-family: monospace;
+        color: #999;
+        font-size: 0.85rem;
+    }
+}

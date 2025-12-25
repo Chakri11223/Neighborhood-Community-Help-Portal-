@@ -1,0 +1,81 @@
+<div class="auth-layout">
+
+    <!-- Left Side: Brand & Welcome -->
+    <div class="brand-panel">
+        <div class="brand-content">
+            <mat-icon class="brand-icon">how_to_reg</mat-icon>
+            <h1>Join the<br>Community</h1>
+            <p>Sign up today to request assistance or offer your skills to help your neighbors.</p>
+        </div>
+    </div>
+
+    <!-- Right Side: Registration Form -->
+    <div class="form-panel">
+        <div class="form-container">
+            <h2>Create Account</h2>
+            <p class="subtitle">Join as a Resident or a Helper.</p>
+
+            <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Full Name</mat-label>
+                    <input matInput formControlName="name">
+                    <mat-icon matSuffix>person</mat-icon>
+                    <mat-error *ngIf="registrationForm.get('name')?.hasError('required')">Name is required</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Email Address</mat-label>
+                    <input matInput formControlName="email" type="email">
+                    <mat-icon matSuffix>email</mat-icon>
+                    <mat-error *ngIf="registrationForm.get('email')?.hasError('required')">Email is required</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Password</mat-label>
+                    <input matInput formControlName="password" type="password">
+                    <mat-icon matSuffix>lock</mat-icon>
+                    <mat-error *ngIf="registrationForm.get('password')?.hasError('required')">Password is
+                        required</mat-error>
+                </mat-form-field>
+
+                <div class="row">
+                    <mat-form-field appearance="outline" class="half-width">
+                        <mat-label>I want to...</mat-label>
+                        <mat-select formControlName="role">
+                            <mat-option value="Resident">Get Help</mat-option>
+                            <mat-option value="Helper">Give Help</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="registrationForm.get('role')?.hasError('required')">Role is
+                            required</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="half-width">
+                        <mat-label>Location (Area)</mat-label>
+                        <input matInput formControlName="location">
+                        <mat-icon matSuffix>place</mat-icon>
+                        <mat-error *ngIf="registrationForm.get('location')?.hasError('required')">Location is
+                            required</mat-error>
+                    </mat-form-field>
+                </div>
+
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Contact Info (Phone)</mat-label>
+                    <input matInput formControlName="contact_info">
+                    <mat-icon matSuffix>phone</mat-icon>
+                </mat-form-field>
+
+                <button mat-flat-button color="primary" type="submit" [disabled]="registrationForm.invalid || loading"
+                    class="full-width submit-btn">
+                    {{ loading ? 'Creating Account...' : 'Register' }}
+                </button>
+            </form>
+
+            <div class="auth-footer">
+                <span>Already have an account?</span>
+                <a routerLink="/login">Sign In</a>
+            </div>
+        </div>
+    </div>
+
+</div>
