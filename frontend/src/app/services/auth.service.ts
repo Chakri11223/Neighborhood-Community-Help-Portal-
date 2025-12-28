@@ -49,9 +49,7 @@ export class AuthService {
   }
 
   register(userData: any): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.apiUrl}/register`, userData).pipe(
-      tap(response => this.handleAuthSuccess(response))
-    );
+    return this.http.post<AuthResponse>(`${this.apiUrl}/register`, userData);
   }
 
   login(credentials: any): Observable<AuthResponse> {
@@ -62,7 +60,7 @@ export class AuthService {
 
   switchRole(newRole: string): Observable<AuthResponse> {
     return this.http.put<AuthResponse>(`${this.apiUrl}/role`, { role: newRole }).pipe(
-      tap(response => this.handleAuthSuccess(response)) 
+      tap(response => this.handleAuthSuccess(response))
     );
   }
 

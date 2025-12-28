@@ -25,6 +25,8 @@ interface Stat {
   suffix: string;
 }
 
+import { AuthService } from '../../services/auth.service';
+
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -40,6 +42,8 @@ interface Stat {
   styleUrl: './home.component.scss'
 })
 export class HomeComponent implements OnInit {
+  isLoggedIn = false;
+
   features: Feature[] = [
     {
       icon: 'groups',
@@ -90,9 +94,15 @@ export class HomeComponent implements OnInit {
     { value: 0, label: 'Communities Served', suffix: '+' }
   ];
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private authService: AuthService
+  ) { }
 
   ngOnInit(): void {
+    this.authService.currentUser$.subscribe(user => {
+      this.isLoggedIn = !!user;
+    });
     this.initStatsObserver();
     this.initScrollReveal();
   }

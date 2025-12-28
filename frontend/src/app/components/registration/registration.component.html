@@ -1,11 +1,10 @@
-
 <div class="terminal-container">
   <!-- HUD Elements -->
   <div class="hud-frame top-left"></div>
   <div class="hud-frame top-right"></div>
   <div class="hud-frame bottom-left"></div>
   <div class="hud-frame bottom-right"></div>
-  
+
   <div class="scanner-gate">
     <div class="scan-line"></div>
   </div>
@@ -22,7 +21,7 @@
 
     <!-- Registration Form -->
     <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()" class="terminal-form">
-      
+
       <div class="form-grid">
         <div class="input-field">
           <div class="field-label">{{ 'REG.NAME_LABEL' | translate }}</div>
@@ -69,7 +68,7 @@
         <div class="field-bar"></div>
       </div>
 
-      <button type="submit" [disabled]="registrationForm.invalid || loading" class="auth-btn">
+      <button type="submit" [disabled]="loading" class="auth-btn">
         <span class="btn-text">{{ (loading ? 'REG.ENROLLING' : 'REG.ENROLL_BTN') | translate }}</span>
         <div class="btn-glitch"></div>
       </button>

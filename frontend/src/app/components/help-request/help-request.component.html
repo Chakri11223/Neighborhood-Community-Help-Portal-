@@ -1,34 +1,34 @@
 <div class="wizard-container fade-in">
-  
+
   <div class="wizard-grid">
     <!-- Left Panel: Guidance -->
     <div class="guidance-panel glass-panel">
       <div class="illustration-box">
         <span class="material-icons-round">campaign</span>
       </div>
-      
-      <h2>Post a Request</h2>
-      <p>Community members are ready to help. Be specific to get the best response.</p>
-      
+
+      <h2>{{ 'POST_REQUEST.TITLE' | translate }}</h2>
+      <p>{{ 'POST_REQUEST.SUBTITLE' | translate }}</p>
+
       <ul class="tips-list">
         <li>
           <span class="material-icons-round check">check_circle</span>
-          <span>Choose the right category</span>
+          <span>{{ 'POST_REQUEST.TIP_1' | translate }}</span>
         </li>
         <li>
           <span class="material-icons-round check">check_circle</span>
-          <span>Describe your need clearly</span>
+          <span>{{ 'POST_REQUEST.TIP_2' | translate }}</span>
         </li>
         <li>
           <span class="material-icons-round check">check_circle</span>
-          <span>Be respectful of helpers' time</span>
+          <span>{{ 'POST_REQUEST.TIP_3' | translate }}</span>
         </li>
       </ul>
-      
+
       <div class="back-link">
         <a routerLink="/requests">
           <span class="material-icons-round">arrow_back</span>
-          Back to Dashboard
+          {{ 'POST_REQUEST.BACK_DASHBOARD' | translate }}
         </a>
       </div>
     </div>
@@ -36,36 +36,37 @@
     <!-- Right Panel: Form -->
     <div class="form-panel glass-panel">
       <form [formGroup]="requestForm" (ngSubmit)="onSubmit()">
-        
+
         <!-- Step 1: Category -->
         <div class="form-section">
-          <label class="section-label">What kind of help do you need?</label>
+          <label class="section-label">{{ 'POST_REQUEST.SECTION_CATEGORY' | translate }}</label>
           <div class="category-grid">
             <label class="category-option" *ngFor="let cat of categories">
               <input type="radio" formControlName="category" [value]="cat">
               <div class="category-card">
                 <span class="material-icons-round">{{ getCategoryIcon(cat) }}</span>
-                <span class="cat-name">{{ cat }}</span>
+                <span class="cat-name">{{ 'POST_REQUEST.CAT_' + (cat | uppercase) | translate }}</span>
               </div>
             </label>
           </div>
           <div class="error-msg" *ngIf="requestForm.get('category')?.touched && requestForm.get('category')?.invalid">
-            Please select a category
+            {{ 'POST_REQUEST.ERROR_CATEGORY' | translate }}
           </div>
         </div>
 
         <!-- Step 2: Details -->
         <div class="form-section">
-          <label class="section-label">Request Details</label>
-          
+          <label class="section-label">{{ 'POST_REQUEST.SECTION_DETAILS' | translate }}</label>
+
           <div class="input-group">
             <span class="input-icon material-icons-round">title</span>
-            <input type="text" formControlName="title" placeholder="Give your request a short title...">
+            <input type="text" formControlName="title" [placeholder]="'POST_REQUEST.PLACEHOLDER_TITLE' | translate">
           </div>
-          
+
           <div class="input-group textarea-group">
             <span class="input-icon material-icons-round">description</span>
-            <textarea formControlName="description" rows="5" placeholder="Describe exactly what you need..."></textarea>
+            <textarea formControlName="description" rows="5"
+              [placeholder]="'POST_REQUEST.PLACEHOLDER_DESC' | translate"></textarea>
           </div>
         </div>
 
@@ -74,7 +75,7 @@
           <button type="submit" [disabled]="requestForm.invalid || loading" class="btn btn-primary btn-block">
             <span class="material-icons-round" *ngIf="!loading">send</span>
             <span class="material-icons-round spinner" *ngIf="loading">refresh</span>
-            {{ loading ? 'Publishing...' : 'Publish Request' }}
+            {{ (loading ? 'POST_REQUEST.BTN_PUBLISHING' : 'POST_REQUEST.BTN_PUBLISH') | translate }}
           </button>
         </div>
 

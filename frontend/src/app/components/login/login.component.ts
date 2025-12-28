@@ -9,8 +9,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { AuthService } from '../../services/auth.service';
-import { AnimatedBackgroundComponent } from '../animated-background/animated-background.component';
-
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
@@ -26,8 +24,7 @@ import { TranslateModule } from '@ngx-translate/core';
     MatButtonModule,
     MatSnackBarModule,
     MatIconModule,
-    TranslateModule,
-    AnimatedBackgroundComponent
+    TranslateModule
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'

@@ -2,21 +2,21 @@
 <section class="hero-section center-content">
   <div class="container reveal-hidden">
     <div class="hero-content reveal-hidden">
-      <div class="hero-badge">{{ 'HOME.PROTOCOL_TITLE' | translate }} v2.4</div>
+      <div class="hero-badge"></div>
       <h1 class="hero-title text-glow">
         {{ 'HOME.HERO_TITLE' | translate }}
       </h1>
       <p class="hero-subtitle">
         {{ 'HOME.HERO_SUBTITLE' | translate }}
       </p>
-      
+
       <div class="hero-actions">
-        <button mat-raised-button color="primary" class="btn-primary" (click)="scrollToSection('features')">
-          <mat-icon>explore</mat-icon>
+        <button mat-raised-button color="primary" class="btn-primary" routerLink="/requests/new">
+          <mat-icon>add_circle_outline</mat-icon>
           {{ 'HOME.CTA_POST' | translate }}
         </button>
-        <button mat-stroked-button class="btn-secondary">
-          <mat-icon>info</mat-icon>
+        <button mat-stroked-button class="btn-secondary" routerLink="/requests">
+          <mat-icon>search</mat-icon>
           {{ 'HOME.CTA_BROWSE' | translate }}
         </button>
       </div>
@@ -33,13 +33,13 @@
     <div class="hud-corners bottom-right"></div>
 
     <div class="features-header">
-      <div class="header-metadata">{{ 'HOME.FEATURES_METADATA' | translate }}</div>
+      <div class="header-metadata"></div>
       <h2 class="features-title">{{ 'HOME.FEATURES_TITLE' | translate }}</h2>
     </div>
 
     <div class="features-grid">
-      <div class="feature-card scale-in" *ngFor="let feature of features; let i = index" 
-           [style.animation-delay]="i * 0.1 + 's'">
+      <div class="feature-card scale-in" *ngFor="let feature of features; let i = index"
+        [style.animation-delay]="i * 0.1 + 's'">
         <div class="feature-id">ID_0{{ i + 1 }}</div>
         <div class="feature-icon">
           <mat-icon>{{ feature.icon }}</mat-icon>
@@ -65,20 +65,20 @@
 
     <div class="steps-container">
       <div class="roadmap-thread"></div>
-      
-      <div class="step-card" *ngFor="let step of steps; let i = index"
-           [style.animation-delay]="i * 0.2 + 's'">
-        
+
+      <div class="step-card" *ngFor="let step of steps; let i = index" [style.animation-delay]="i * 0.2 + 's'">
+
         <div class="step-node">
           <div class="node-pulse"></div>
           <div class="step-number">{{ step.number }}</div>
         </div>
 
         <div class="step-content glass-panel">
-          <div class="phase-label">{{ 'HOME.PHASE_LABEL' | translate }}{{ step.number }}::{{ 'HOME.INITIALIZE' | translate }}</div>
+          <div class="phase-label">{{ 'HOME.PHASE_LABEL' | translate }}{{ step.number }}::{{ 'HOME.INITIALIZE' |
+            translate }}</div>
           <h3 class="step-title">{{ 'HOME.STEP_' + step.number + '_TITLE' | translate }}</h3>
           <p class="step-description">{{ 'HOME.STEP_' + step.number + '_DESC' | translate }}</p>
-          
+
           <div class="step-decor">
             <span class="material-icons-round">{{ step.icon }}</span>
             <div class="decor-line"></div>
@@ -89,22 +89,22 @@
   </div>
 </section>
 
-  <!-- Stats Section -->
-  <section class="stats-section">
-    <div class="container relative reveal-hidden">
-      <div class="scanning-grid"></div>
-      <div class="stats-grid">
-        <div class="stat-card" *ngFor="let stat of stats; let i = index">
-          <div class="stat-value">
-            <span class="number">{{ stat.value }}</span>
-            <span class="suffix">{{ stat.suffix }}</span>
-          </div>
-          <div class="stat-label">{{ 'STATS.LABEL_' + i | translate }}</div>
-          <div class="stat-glow"></div>
+<!-- Stats Section -->
+<section class="stats-section">
+  <div class="container relative reveal-hidden">
+    <div class="scanning-grid"></div>
+    <div class="stats-grid">
+      <div class="stat-card" *ngFor="let stat of stats; let i = index">
+        <div class="stat-value">
+          <span class="number">{{ stat.value }}</span>
+          <span class="suffix">{{ stat.suffix }}</span>
         </div>
+        <div class="stat-label">{{ 'STATS.LABEL_' + i | translate }}</div>
+        <div class="stat-glow"></div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
 <!-- CTA Section -->
 <section class="cta-section">
@@ -114,7 +114,7 @@
       <p class="cta-subtitle">
         {{ 'HOME.CTA_SUBTITLE' | translate }}
       </p>
-      <div class="cta-buttons">
+      <div class="cta-buttons" *ngIf="!isLoggedIn; else loggedInCta">
         <button mat-raised-button class="btn btn-primary btn-large" routerLink="/register">
           <mat-icon>person_add</mat-icon>
           {{ 'HOME.CTA_JOIN_RESIDENT' | translate }}
@@ -124,8 +124,17 @@
           {{ 'HOME.CTA_BECOME_HELPER' | translate }}
         </button>
       </div>
-      <p class="cta-login">
-        {{ 'HOME.CTA_LOGIN_PROMPT' | translate }} 
+      <ng-template #loggedInCta>
+        <div class="cta-buttons">
+          <button mat-raised-button class="btn btn-primary btn-large" routerLink="/requests">
+            <mat-icon>dashboard</mat-icon>
+            Go to Dashboard
+          </button>
+        </div>
+      </ng-template>
+
+      <p class="cta-login" *ngIf="!isLoggedIn">
+        {{ 'HOME.CTA_LOGIN_PROMPT' | translate }}
         <a routerLink="/login" class="login-link">{{ 'HOME.CTA_SIGN_IN' | translate }}</a>
       </p>
     </div>

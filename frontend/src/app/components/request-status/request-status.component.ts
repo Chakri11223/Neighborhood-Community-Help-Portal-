@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -20,7 +20,9 @@ import { AuthService } from '../../services/auth.service';
     MatIconModule,
     MatChipsModule,
     MatDividerModule,
-    MatSnackBarModule
+    MatDividerModule,
+    MatSnackBarModule,
+    RouterModule
   ],
   templateUrl: './request-status.component.html',
   styleUrl: './request-status.component.scss'
@@ -122,5 +124,19 @@ export class RequestStatusComponent implements OnInit {
   // Helper accepts pending request
   onAccept() {
     this.updateStatus('Accepted');
+  }
+
+  getCategoryIcon(category: string): string {
+    const icons: any = {
+      'Household': 'home',
+      'Medical': 'local_hospital',
+      'Transport': 'directions_car',
+      'Social': 'groups',
+      'Tech Support': 'computer',
+      'Education': 'school',
+      'Emergency': 'warning',
+      'Other': 'help'
+    };
+    return icons[category] || 'help';
   }
 }

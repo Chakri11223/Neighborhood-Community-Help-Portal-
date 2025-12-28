@@ -10,8 +10,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { AuthService } from '../../services/auth.service';
-import { AnimatedBackgroundComponent } from '../animated-background/animated-background.component';
-
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
@@ -28,7 +26,6 @@ import { TranslateModule } from '@ngx-translate/core';
     MatSelectModule,
     MatSnackBarModule,
     MatIconModule,
-    AnimatedBackgroundComponent,
     TranslateModule
   ],
   templateUrl: './registration.component.html',
@@ -69,6 +66,8 @@ export class RegistrationComponent {
           this.snackBar.open(err.error?.error || 'Registration failed', 'Close', { duration: 3000 });
         }
       });
+    } else {
+      this.snackBar.open('Please fill in all fields correctly.', 'Close', { duration: 3000 });
     }
   }
 }

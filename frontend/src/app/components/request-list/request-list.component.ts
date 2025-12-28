@@ -29,7 +29,9 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrl: './request-list.component.scss'
 })
 export class RequestListComponent implements OnInit {
+  allRequests: HelpRequest[] = [];
   requests: HelpRequest[] = [];
+  currentFilter: string = 'All';
   loading = true;
   userRole: string = '';
   userId: number = 0;
@@ -55,14 +57,13 @@ export class RequestListComponent implements OnInit {
     if (this.userRole === 'Resident') {
       obs = this.requestService.getMyRequests();
     } else {
-      // Helper sees all. By default showing all.
-      // Could filter by 'Pending' to show available tasks first
       obs = this.requestService.getAllRequests();
     }
 
     obs.subscribe({
       next: (res) => {
-        this.requests = res.requests;
+        this.allRequests = res.requests;
+        this.applyFilter();
         this.loading = false;
       },
       error: (err) => {
@@ -70,6 +71,19 @@ export class RequestListComponent implements OnInit {
         this.loading = false;
       }
     });
+  }
+
+  setFilter(filter: string) {
+    this.currentFilter = filter;
+    this.applyFilter();
+  }
+
+  applyFilter() {
+    if (this.currentFilter === 'All') {
+      this.requests = this.allRequests;
+    } else {
+      this.requests = this.allRequests.filter(req => req.status === this.currentFilter);
+    }
   }
 
   getStatusColor(status: string): string {
@@ -91,7 +105,8 @@ export class RequestListComponent implements OnInit {
       this.requestService.deleteRequest(req.id).subscribe({
         next: () => {
           // Remove from list
-          this.requests = this.requests.filter(r => r.id !== req.id);
+          this.allRequests = this.allRequests.filter(r => r.id !== req.id);
+          this.applyFilter();
         },
         error: (err) => {
           alert('Failed to delete: ' + (err.error?.error || 'Unknown error'));

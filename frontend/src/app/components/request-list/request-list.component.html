@@ -1,5 +1,5 @@
 <div class="requests-dashboard fade-in">
-  
+
   <!-- Header / Filter Bar -->
   <header class="dashboard-header">
     <div class="header-content">
@@ -7,12 +7,12 @@
         <h1 class="page-title text-gradient">{{ 'LIST.TITLE' | translate }}</h1>
         <p class="page-subtitle">{{ 'LIST.SUBTITLE' | translate }}</p>
       </div>
-      
+
       <div class="action-group">
-         <button routerLink="/requests/new" *ngIf="userRole === 'Resident'" class="btn btn-primary btn-glow">
-           <span class="material-icons-round">add_circle</span>
-           <span>{{ 'LIST.NEW_BTN' | translate }}</span>
-         </button>
+        <button routerLink="/requests/new" *ngIf="userRole === 'Resident'" class="btn btn-primary btn-glow">
+          <span class="material-icons-round">add_circle</span>
+          <span>{{ 'LIST.NEW_BTN' | translate }}</span>
+        </button>
       </div>
     </div>
 
@@ -22,12 +22,16 @@
         <span class="material-icons-round">search</span>
         <input type="text" [placeholder]="'LIST.SEARCH_PLACEHOLDER' | translate" #searchInput>
       </div>
-      
+
       <div class="filter-pills">
-        <button class="pill active">{{ 'LIST.FILTER_ALL' | translate }}</button>
-        <button class="pill">{{ 'LIST.FILTER_PENDING' | translate }}</button>
-        <button class="pill">{{ 'LIST.FILTER_IN_PROGRESS' | translate }}</button>
-        <button class="pill">{{ 'LIST.FILTER_COMPLETED' | translate }}</button>
+        <button class="pill" [class.active]="currentFilter === 'All'" (click)="setFilter('All')">{{ 'LIST.FILTER_ALL' |
+          translate }}</button>
+        <button class="pill" [class.active]="currentFilter === 'Pending'" (click)="setFilter('Pending')">{{
+          'LIST.FILTER_PENDING' | translate }}</button>
+        <button class="pill" [class.active]="currentFilter === 'In-progress'" (click)="setFilter('In-progress')">{{
+          'LIST.FILTER_IN_PROGRESS' | translate }}</button>
+        <button class="pill" [class.active]="currentFilter === 'Completed'" (click)="setFilter('Completed')">{{
+          'LIST.FILTER_COMPLETED' | translate }}</button>
       </div>
     </div>
   </header>
@@ -39,17 +43,23 @@
       <div class="card-icon-wrapper" [ngClass]="getCategoryColor(req.category)">
         <span class="material-icons-round">{{ getCategoryIcon(req.category) }}</span>
       </div>
-      
-      <!-- Status Badge -->
-      <div class="status-badge" [ngClass]="req.status.toLowerCase().replace(' ', '-')">
-        <span class="dot"></span>
-        {{ req.status }}
+
+      <!-- Top Actions (Status + Delete) -->
+      <div class="card-top-actions">
+        <div class="status-badge" [ngClass]="req.status.toLowerCase().replace(' ', '-')">
+          <span class="dot"></span>
+          {{ req.status }}
+        </div>
+
+        <button class="delete-icon-btn" *ngIf="userRole === 'Resident'" (click)="onDelete(req)" title="Delete">
+          <span class="material-icons-round">delete_outline</span>
+        </button>
       </div>
 
       <div class="card-content">
         <h3 class="card-title">{{ req.title }}</h3>
         <p class="card-desc">{{ req.description | slice:0:120 }}{{ req.description.length > 120 ? '...' : '' }}</p>
-        
+
         <div class="meta-row">
           <div class="meta-item">
             <span class="material-icons-round">calendar_today</span>
@@ -67,11 +77,12 @@
           <div class="avatar-mini">{{ 'U' }}</div> <!-- Placeholder for user initial/avatar -->
           <span class="username">Resident</span>
         </div>
-        
-        <button class="action-btn" [routerLink]="['/requests', req.id, 'status']">
-          <span>View</span>
-          <span class="material-icons-round">arrow_forward</span>
-        </button>
+        <div class="actions-wrapper">
+          <button class="action-btn" [routerLink]="['/requests', req.id]">
+            <span>View</span>
+            <span class="material-icons-round">arrow_forward</span>
+          </button>
+        </div>
       </div>
     </div>
   </div>

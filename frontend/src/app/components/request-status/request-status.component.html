@@ -1,51 +1,81 @@
-<div class="status-container" *ngIf="request">
-    <mat-card>
-        <mat-card-header>
-            <mat-card-title>{{ request.title }}</mat-card-title>
-            <mat-card-subtitle>{{ request.category }} • Posted on {{ request.created_at | date:'medium'
-                }}</mat-card-subtitle>
-        </mat-card-header>
+<div class="status-container fade-in" *ngIf="request">
 
-        <mat-card-content>
-            <div class="status-badge">
-                <mat-chip-set>
-                    <mat-chip highlighted color="accent">{{ request.status }}</mat-chip>
-                </mat-chip-set>
+    <div class="glass-card">
+        <!-- Header: Title & Status -->
+        <div class="header-section">
+            <div class="request-meta">
+                <h2>{{ request.title }}</h2>
+                <div class="category-pill">
+                    <mat-icon>{{ getCategoryIcon(request.category) }}</mat-icon>
+                    <span>{{ request.category }}</span>
+                </div>
             </div>
 
-            <p class="description">{{ request.description }}</p>
+            <div class="status-badge-lg" [ngClass]="request.status.toLowerCase().replace(' ', '-')">
+                {{ request.status }}
+            </div>
+        </div>
 
-            <mat-divider></mat-divider>
+        <!-- Description -->
+        <div class="description-box">
+            <h3>Description</h3>
+            <p>{{ request.description }}</p>
+        </div>
 
-            <div class="info-section">
-                <h3>Details</h3>
-                <p *ngIf="request.attachments"><strong>Attachments:</strong> {{ request.attachments }}</p>
-                <p *ngIf="request.helper_name"><strong>Accepted by:</strong> {{ request.helper_name }}</p>
+        <!-- People Involved -->
+        <div class="people-grid">
+            <div class="person-card">
+                <div class="avatar-placeholder">
+                    <mat-icon>person</mat-icon>
+                </div>
+                <div class="info">
+                    <span class="label">Requested By</span>
+                    <span class="value">{{ request.resident_name }}</span>
+                </div>
             </div>
 
-            <!-- Self-Request Warning -->
-            <div class="warning-box" *ngIf="isOwnRequest && userRole === 'Helper'">
-                <p>It was requested by you, so wait until somebody responds.</p>
+            <div class="person-card" *ngIf="request.helper_name">
+                <div class="avatar-placeholder">
+                    <mat-icon>handshake</mat-icon>
+                </div>
+                <div class="info">
+                    <span class="label">Accepted By</span>
+                    <span class="value">{{ request.helper_name }}</span>
+                </div>
             </div>
-        </mat-card-content>
+        </div>
 
-        <mat-card-actions align="end">
-            <button mat-button (click)="loadRequest(request.id)">Refresh</button>
+        <!-- Self-Request Warning -->
+        <div class="warning-box" *ngIf="isOwnRequest && userRole === 'Helper'">
+            <mat-icon>warning</mat-icon>
+            <span>You cannot accept your own request.</span>
+        </div>
 
+        <!-- Actions -->
+        <div class="action-buttons">
             <!-- Helper Actions -->
             <button mat-raised-button color="primary" *ngIf="canAccept" (click)="onAccept()">
                 Accept Request
             </button>
 
-            <button mat-raised-button color="primary"
+            <button mat-raised-button class="btn-primary"
                 *ngIf="canComplete || (request.status === 'Accepted' && request.helper_id === userId)"
                 (click)="onNextAction()">
                 {{ nextActionLabel }}
             </button>
-        </mat-card-actions>
-    </mat-card>
+
+            <!-- Cancel/Back -->
+            <button mat-stroked-button color="warn" routerLink="/requests">
+                Back
+            </button>
+        </div>
+
+    </div>
 </div>
 
+<div class="loading" *ngIf="loading">
+    Loading...
+</div>
 <div class="loading" *ngIf="loading">
     Loading...
 </div>

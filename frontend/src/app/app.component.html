@@ -9,7 +9,7 @@
   <!-- 🎞️ TECH LAYERS -->
   <div class="grain-overlay"></div>
   <div class="scanlines"></div>
-  
+
   <!-- 🏝️ DYNAMIC ISLAND (Status) -->
   <div class="dynamic-island-wrapper">
     <div class="island-capsule animate-slide-down">
@@ -18,7 +18,7 @@
         <div class="island-left">
           <span class="material-icons-round status-icon">wifi</span>
           <span class="app-time">{{ currentTime }}</span>
-          
+
           <div class="locale-switcher">
             <span class="locale-trigger">
               <span class="material-icons-round">language</span>
@@ -30,9 +30,9 @@
             </div>
           </div>
         </div>
-        
+
         <div class="island-center">
-          <span class="app-name">Portal OS</span>
+          <span class="app-name"></span>
         </div>
 
         <div class="island-right">
@@ -43,7 +43,7 @@
               {{ user.name.charAt(0) }}
             </div>
           </ng-container>
-          
+
           <ng-template #loginState>
             <span class="guest-pill">Guest Mode</span>
           </ng-template>
@@ -63,9 +63,10 @@
   <!-- ⚓ FLOATING DOCK (Navigation) -->
   <nav class="dock-wrapper animate-slide-up">
     <div class="dock-glass">
-      
+
       <!-- Home App -->
-      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="dock-item" [matTooltip]="'NAV.HOME' | translate">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="dock-item"
+        [matTooltip]="'NAV.HOME' | translate">
         <div class="icon-box gradient-blue">
           <span class="material-icons-round">home</span>
         </div>
@@ -82,7 +83,8 @@
 
       <!-- Create App (Resident Only) -->
       <ng-container *ngIf="authService.currentUser$ | async as user">
-        <a *ngIf="user.role === 'Resident'" routerLink="/requests/new" routerLinkActive="active" class="dock-item big-action" [matTooltip]="'NAV.NEW_REQUEST' | translate">
+        <a *ngIf="user.role === 'Resident'" routerLink="/requests/new" routerLinkActive="active"
+          class="dock-item big-action" [matTooltip]="'NAV.NEW_REQUEST' | translate">
           <div class="icon-box gradient-pink">
             <span class="material-icons-round">add</span>
           </div>
@@ -97,7 +99,7 @@
         </div>
         <div class="indicator"></div>
       </a>
-      
+
       <div class="dock-divider"></div>
 
       <!-- System Actions -->

@@ -1,24 +1,24 @@
 <div class="profile-dashboard fade-in" *ngIf="user">
-  
+
   <!-- Profile Header / Banner -->
   <div class="profile-header glass-panel">
     <div class="cover-image"></div>
-    
+
     <div class="profile-identity">
       <div class="avatar-wrapper">
         <div class="avatar">{{ user.name.charAt(0) }}</div>
         <div class="status-indicator online"></div>
       </div>
-      
+
       <div class="identity-text">
         <h1 class="username" *ngIf="!isEditing">{{ user.name }}</h1>
         <input class="edit-input username-input" *ngIf="isEditing" [(ngModel)]="editData.name" placeholder="Full Name">
         <div class="badges">
           <span class="role-badge" [ngClass]="user.role.toLowerCase()">{{ user.role }}</span>
-          <span class="id-badge">ID: #{{ user.id | number:'4.0' }}</span>
+          <span class="id-badge">ID: {{ user.name }}</span>
         </div>
       </div>
-      
+
       <div class="header-actions">
         <ng-container *ngIf="!isEditing">
           <button class="btn btn-secondary switch-btn" (click)="onSwitchRole()">
@@ -85,7 +85,7 @@
         <span class="material-icons-round">person_pin</span>
         {{ 'PROFILE.REPUTATION' | translate }} <!-- Using as placeholder for Personal Info if key missing -->
       </h3>
-      
+
       <div class="info-grid">
         <div class="info-group">
           <label>{{ 'REG.EMAIL_LABEL' | translate }}</label>
@@ -94,25 +94,27 @@
             {{ user.email }}
           </div>
         </div>
-        
+
         <div class="info-group">
           <label>{{ 'PROFILE.CONTACT' | translate }}</label>
           <div class="value-box" *ngIf="!isEditing">
             <span class="material-icons-round">phone</span>
             {{ user.contact_info || 'Not provided' }}
           </div>
-          <input class="edit-input detail-input" *ngIf="isEditing" [(ngModel)]="editData.contact_info" placeholder="Enter phone number">
+          <input class="edit-input detail-input" *ngIf="isEditing" [(ngModel)]="editData.contact_info"
+            placeholder="Enter phone number">
         </div>
-        
+
         <div class="info-group">
           <label>{{ 'PROFILE.LOCATION' | translate }}</label>
           <div class="value-box" *ngIf="!isEditing">
             <span class="material-icons-round">place</span>
             {{ user.location || 'Not provided' }}
           </div>
-          <input class="edit-input detail-input" *ngIf="isEditing" [(ngModel)]="editData.location" placeholder="Enter location">
+          <input class="edit-input detail-input" *ngIf="isEditing" [(ngModel)]="editData.location"
+            placeholder="Enter location">
         </div>
-        
+
         <div class="info-group">
           <label>{{ 'PROFILE.MEMBER_SINCE' | translate }}</label>
           <div class="value-box">

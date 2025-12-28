@@ -96,5 +96,25 @@
     "LOCATION": "Location",
     "CONTACT": "Contact Number",
     "REPUTATION": "Reputation"
+  },
+  "POST_REQUEST": {
+    "TITLE": "Post a Request",
+    "SUBTITLE": "Community members are ready to help. Be specific to get the best response.",
+    "TIP_1": "Choose the right category",
+    "TIP_2": "Describe your need clearly",
+    "TIP_3": "Be respectful of helpers' time",
+    "BACK_DASHBOARD": "Back to Dashboard",
+    "SECTION_CATEGORY": "What kind of help do you need?",
+    "SECTION_DETAILS": "Request Details",
+    "PLACEHOLDER_TITLE": "Give your request a short title...",
+    "PLACEHOLDER_DESC": "Describe exactly what you need...",
+    "BTN_PUBLISH": "Publish Request",
+    "BTN_PUBLISHING": "Publishing...",
+    "ERROR_CATEGORY": "Please select a category",
+    "CAT_HOUSEHOLD": "Household",
+    "CAT_MEDICAL": "Medical",
+    "CAT_TRANSPORT": "Transport",
+    "CAT_SOCIAL": "Social",
+    "CAT_OTHER": "Other"
   }
 }

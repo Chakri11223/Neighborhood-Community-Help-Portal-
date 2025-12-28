@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import { MessageModel } from '../models/Message';
-import { Message } from '../types';
 
 export class ChatController {
   static async sendMessage(req: Request, res: Response): Promise<void> {
