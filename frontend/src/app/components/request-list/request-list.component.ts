@@ -10,6 +10,8 @@ import { RequestService, HelpRequest } from '../../services/request.service';
 import { AuthService } from '../../services/auth.service';
 import { Observable, map } from 'rxjs';
 
+import { TranslateModule } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-request-list',
   standalone: true,
@@ -20,7 +22,8 @@ import { Observable, map } from 'rxjs';
     MatButtonModule,
     MatIconModule,
     MatChipsModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    TranslateModule
   ],
   templateUrl: './request-list.component.html',
   styleUrl: './request-list.component.scss'
@@ -95,5 +98,23 @@ export class RequestListComponent implements OnInit {
         }
       });
     }
+  }
+
+  getCategoryIcon(category: string): string {
+    const icons: any = {
+      'Household': 'home',
+      'Tech Support': 'computer',
+      'Transport': 'directions_car',
+      'Education': 'school',
+      'Emergency': 'warning'
+    };
+    return icons[category] || 'help';
+  }
+
+  getCategoryColor(category: string): string {
+    const x = category.length;
+    if (x % 3 === 0) return 'blue';
+    if (x % 3 === 1) return 'purple';
+    return 'orange';
   }
 }

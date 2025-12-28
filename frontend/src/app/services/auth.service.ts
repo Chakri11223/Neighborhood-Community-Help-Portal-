@@ -43,8 +43,8 @@ export class AuthService {
         this.logout();
       }
     } else {
-      // Clear inconsistent state
-      this.logout();
+      // Clear inconsistent state silently
+      this.logout(false);
     }
   }
 
@@ -62,15 +62,30 @@ export class AuthService {
 
   switchRole(newRole: string): Observable<AuthResponse> {
     return this.http.put<AuthResponse>(`${this.apiUrl}/role`, { role: newRole }).pipe(
-      tap(response => this.handleAuthSuccess(response)) // Reuse success handler to update token/user
+      tap(response => this.handleAuthSuccess(response)) 
     );
   }
 
-  logout() {
+  updateUser(userId: number, data: any): Observable<any> {
+    const userUrl = 'http://localhost:3000/api/users';
+    return this.http.put<any>(`${userUrl}/${userId}`, data).pipe(
+      tap(response => {
+        if (response.user) {
+          // Update local storage and behavior subject
+          localStorage.setItem('user', JSON.stringify(response.user));
+          this.currentUserSubject.next(response.user);
+        }
+      })
+    );
+  }
+
+  logout(redirectToLogin: boolean = true) {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     this.currentUserSubject.next(null);
-    this.router.navigate(['/login']);
+    if (redirectToLogin) {
+      this.router.navigate(['/login']);
+    }
   }
 
   private handleAuthSuccess(response: AuthResponse) {

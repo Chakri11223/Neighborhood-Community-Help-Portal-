@@ -1,50 +1,123 @@
-<div class="app-container">
+<div class="os-shell">
+  <!-- 🌌 AMBIENT BACKGROUND BLOBS -->
+  <div class="glass-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
 
-  <mat-toolbar color="primary" class="gov-header-bar">
-    <div class="logo-area">
-      <mat-icon class="logo-icon">account_balance</mat-icon>
-      <div class="titles">
-        <span class="main-title">Neighborhood Help Portal</span>
-        <span class="sub-title">Official Community Support System</span>
+  <!-- 🎞️ TECH LAYERS -->
+  <div class="grain-overlay"></div>
+  <div class="scanlines"></div>
+  
+  <!-- 🏝️ DYNAMIC ISLAND (Status) -->
+  <div class="dynamic-island-wrapper">
+    <div class="island-capsule animate-slide-down">
+      <div class="island-content">
+        <!-- Default State: Logo/Clock -->
+        <div class="island-left">
+          <span class="material-icons-round status-icon">wifi</span>
+          <span class="app-time">{{ currentTime }}</span>
+          
+          <div class="locale-switcher">
+            <span class="locale-trigger">
+              <span class="material-icons-round">language</span>
+            </span>
+            <div class="locale-dropdown">
+              <button (click)="changeLanguage('en')" [class.active]="translate.currentLang === 'en'">EN</button>
+              <button (click)="changeLanguage('te')" [class.active]="translate.currentLang === 'te'">తె</button>
+              <button (click)="changeLanguage('ta')" [class.active]="translate.currentLang === 'ta'">த</button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="island-center">
+          <span class="app-name">Portal OS</span>
+        </div>
+
+        <div class="island-right">
+          <!-- Auth State -->
+          <ng-container *ngIf="authService.currentUser$ | async as user; else loginState">
+            <span class="user-pill">{{ user.name }}</span>
+            <div class="avatar-micro" [title]="user.role">
+              {{ user.name.charAt(0) }}
+            </div>
+          </ng-container>
+          
+          <ng-template #loginState>
+            <span class="guest-pill">Guest Mode</span>
+          </ng-template>
+        </div>
       </div>
     </div>
+  </div>
 
-    <span class="spacer"></span>
-
-    <ng-container *ngIf="authService.currentUser$ | async as user; else loginLinks">
-      <span class="welcome-text">Welcome, {{ user.name }} ({{ user.role }})</span>
-
-      <button mat-button routerLink="/requests" routerLinkActive="active"
-        [routerLinkActiveOptions]="{exact: true}">Requests</button>
-      <button mat-button routerLink="/requests/new" *ngIf="user.role === 'Resident'" routerLinkActive="active">New
-        Request</button>
-
-      <button mat-stroked-button class="nav-switch-btn" (click)="onSwitchRole()">
-        <mat-icon>swap_horiz</mat-icon>
-        {{ user.role === 'Resident' ? 'Helper' : 'Resident' }}
-      </button>
-
-      <button mat-button routerLink="/profile" routerLinkActive="active">Profile</button>
-      <button mat-icon-button (click)="logout()" title="Logout">
-        <mat-icon>logout</mat-icon>
-      </button>
-    </ng-container>
-
-    <ng-template #loginLinks>
-      <button mat-button routerLink="/login" routerLinkActive="active">Login</button>
-      <button mat-flat-button color="accent" routerLink="/register">Register</button>
-    </ng-template>
-  </mat-toolbar>
-
-  <main class="content">
-    <router-outlet></router-outlet>
+  <!-- 🪟 MAIN STAGE (Windows) -->
+  <main class="stage-center">
+    <!-- The "Active Window" -->
+    <div class="window-container fade-scale-in">
+      <router-outlet></router-outlet>
+    </div>
   </main>
 
-  <footer class="gov-footer">
-    <div class="footer-content">
-      <p>&copy; 2024 Neighborhood Help Portal. All rights reserved.</p>
-      <p class="footer-links">Privacy Policy | Terms of Service | Contact Support</p>
+  <!-- ⚓ FLOATING DOCK (Navigation) -->
+  <nav class="dock-wrapper animate-slide-up">
+    <div class="dock-glass">
+      
+      <!-- Home App -->
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="dock-item" [matTooltip]="'NAV.HOME' | translate">
+        <div class="icon-box gradient-blue">
+          <span class="material-icons-round">home</span>
+        </div>
+        <div class="indicator"></div>
+      </a>
+
+      <!-- Requests App -->
+      <a routerLink="/requests" routerLinkActive="active" class="dock-item" [matTooltip]="'NAV.REQUESTS' | translate">
+        <div class="icon-box gradient-purple">
+          <span class="material-icons-round">dashboard</span>
+        </div>
+        <div class="indicator"></div>
+      </a>
+
+      <!-- Create App (Resident Only) -->
+      <ng-container *ngIf="authService.currentUser$ | async as user">
+        <a *ngIf="user.role === 'Resident'" routerLink="/requests/new" routerLinkActive="active" class="dock-item big-action" [matTooltip]="'NAV.NEW_REQUEST' | translate">
+          <div class="icon-box gradient-pink">
+            <span class="material-icons-round">add</span>
+          </div>
+          <div class="indicator"></div>
+        </a>
+      </ng-container>
+
+      <!-- Profile App -->
+      <a routerLink="/profile" routerLinkActive="active" class="dock-item" [matTooltip]="'NAV.PROFILE' | translate">
+        <div class="icon-box gradient-cyan">
+          <span class="material-icons-round">person</span>
+        </div>
+        <div class="indicator"></div>
+      </a>
+      
+      <div class="dock-divider"></div>
+
+      <!-- System Actions -->
+      <ng-container *ngIf="authService.currentUser$ | async; else authActions">
+        <a (click)="logout()" href="javascript:void(0)" class="dock-item danger" matTooltip="Log Out">
+          <div class="icon-box gray">
+            <span class="material-icons-round">power_settings_new</span>
+          </div>
+        </a>
+      </ng-container>
+
+      <ng-template #authActions>
+        <a routerLink="/login" class="dock-item" matTooltip="Login">
+          <div class="icon-box gray">
+            <span class="material-icons-round">login</span>
+          </div>
+        </a>
+      </ng-template>
+
     </div>
-  </footer>
+  </nav>
 
 </div>

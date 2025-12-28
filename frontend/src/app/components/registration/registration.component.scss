@@ -1,130 +1,140 @@
-@use '@angular/material' as mat;
 
-.auth-layout {
-    display: flex;
-    min-height: calc(100vh - 64px);
-    width: 100%;
-    background-color: white;
-
-    @media (max-width: 768px) {
-        flex-direction: column;
-    }
+// Identical logic to Login for consistency
+.terminal-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 90vh;
+  position: relative;
+  padding: 40px 24px;
+  font-family: var(--font-display);
+  overflow: hidden;
 }
 
-.brand-panel {
-    flex: 0 0 40%; // Slightly narrower for registration, maybe? let's stick to 40%
-    background-color: #1a237e;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 40px;
-    position: relative;
-    overflow: hidden;
-    background: linear-gradient(135deg, #1a237e 0%, #0d47a1 100%);
-
-    .brand-content {
-        max-width: 400px;
-        z-index: 2;
-
-        .brand-icon {
-            transform: scale(3);
-            margin-bottom: 32px;
-            margin-left: 12px;
-            opacity: 0.9;
-        }
-
-        h1 {
-            font-size: 3rem;
-            font-weight: 700;
-            line-height: 1.1;
-            margin-bottom: 24px;
-            font-family: 'Roboto', sans-serif;
-        }
-
-        p {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            opacity: 0.8;
-            font-weight: 300;
-        }
-    }
-
-    @media (max-width: 768px) {
-        flex: 0 0 auto;
-        padding: 40px 20px;
-        text-align: center;
-
-        .brand-content h1 {
-            font-size: 2rem;
-        }
-    }
+.hud-frame {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--neon-purple); // Pink/Purple for register
+  opacity: 0.3;
+  z-index: 1;
+  pointer-events: none;
+  
+  &.top-left { top: 20px; left: 20px; border-right: 0; border-bottom: 0; }
+  &.top-right { top: 20px; right: 20px; border-left: 0; border-bottom: 0; }
+  &.bottom-left { bottom: 20px; left: 20px; border-right: 0; border-top: 0; }
+  &.bottom-right { bottom: 20px; right: 20px; border-left: 0; border-top: 0; }
 }
 
-.form-panel {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 40px;
-    background-color: #ffffff;
-
-    .form-container {
-        width: 100%;
-        max-width: 480px; // Wider for reg form
-
-        h2 {
-            font-size: 2rem;
-            color: #333;
-            margin-bottom: 8px;
-            font-weight: 700;
-        }
-
-        .subtitle {
-            color: #666;
-            margin-bottom: 32px;
-            font-size: 1rem;
-        }
-    }
+.scanner-gate {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  background: linear-gradient(to bottom, transparent, rgba(189, 0, 255, 0.02) 50%, transparent);
+  pointer-events: none; z-index: 2;
 }
 
-.full-width {
-    width: 100%;
-    margin-bottom: 12px; // slightly tighter vertical spacing for reg
+.scan-line {
+  position: absolute; width: 100%; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--neon-purple), transparent);
+  box-shadow: 0 0 15px var(--neon-purple);
+  top: 0; animation: scan 8s linear infinite; opacity: 0.5;
 }
 
-.row {
-    display: flex;
-    gap: 16px;
-    width: 100%;
+@keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
 
-    .half-width {
-        flex: 1;
-    }
+.terminal-card {
+  width: 100%;
+  max-width: 600px; // Wider for registration
+  background: rgba(10, 10, 20, 0.8);
+  backdrop-filter: blur(25px);
+  border: 1px solid rgba(189, 0, 255, 0.2);
+  padding: 60px 48px;
+  position: relative;
+  z-index: 10;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+  
+  &::after {
+    content: ''; position: absolute; inset: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(189, 0, 255, 0.03) 1px, rgba(189, 0, 255, 0.03) 2px);
+    pointer-events: none;
+  }
 }
 
-.submit-btn {
-    height: 50px;
-    font-size: 1.1rem;
-    margin-top: 16px;
-    border-radius: 4px;
+.terminal-header { margin-bottom: 48px; text-align: center; }
+
+.status-badge {
+  display: inline-flex; align-items: center; gap: 8px; font-size: 0.7rem; letter-spacing: 2px;
+  color: var(--neon-purple); background: rgba(189, 0, 255, 0.1);
+  padding: 4px 12px; border-radius: 4px; margin-bottom: 16px; font-weight: 700;
 }
 
-.auth-footer {
-    margin-top: 24px;
-    text-align: center;
-    font-size: 0.95rem;
-    color: #666;
-
-    a {
-        color: #1a237e;
-        font-weight: 600;
-        text-decoration: none;
-        margin-left: 5px;
-
-        &:hover {
-            text-decoration: underline;
-            color: #ffb300;
-        }
-    }
+.pulse-dot {
+  width: 6px; height: 6px; background: var(--neon-purple);
+  border-radius: 50%; box-shadow: 0 0 10px var(--neon-purple);
+  animation: pulse 1.5s infinite;
 }
+
+@keyframes pulse { 0% { opacity: 0.5; } 100% { opacity: 1; } }
+
+.terminal-title {
+  font-size: 2.5rem; font-weight: 800; letter-spacing: 4px; margin: 0;
+  text-shadow: 0 0 20px rgba(189, 0, 255, 0.3);
+}
+
+.auth-protocol { font-size: 0.8rem; color: var(--text-muted); letter-spacing: 3px; margin-top: 8px; }
+
+// Grid for registration
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  @media (max-width: 600px) { grid-template-columns: 1fr; gap: 0; }
+}
+
+.input-field { position: relative; margin-bottom: 32px; }
+.field-label { font-size: 0.75rem; letter-spacing: 2px; color: var(--neon-purple); margin-bottom: 8px; font-weight: 700; opacity: 0.8; }
+
+input, .neon-select {
+  width: 100%; background: transparent !important; border: none !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+  padding: 12px 0; font-size: 1.1rem; color: white !important; outline: none !important;
+  font-family: var(--font-ui); transition: all 0.3s ease;
+  
+  &:focus { border-bottom-color: var(--neon-purple) !important; text-shadow: 0 0 10px rgba(189, 0, 255, 0.5); }
+}
+
+// Special Select styling
+.neon-select {
+  appearance: none;
+  border-radius: 0;
+  cursor: pointer;
+  option { background: #0A0A14; color: white; }
+}
+
+.field-bar {
+  position: absolute; bottom: 0; left: 0; width: 0; height: 2px;
+  background: var(--neon-purple); box-shadow: 0 0 10px var(--neon-purple);
+  transition: width 0.4s ease;
+}
+
+input:focus ~ .field-bar, .neon-select:focus ~ .field-bar { width: 100%; }
+
+.eye-btn { position: absolute; right: 0; bottom: 8px; background: none; border: none; color: var(--text-muted); cursor: pointer; &:hover { color: white; } }
+
+.auth-btn {
+  margin-top: 16px; width: 100%; height: 54px;
+  background: rgba(189, 0, 255, 0.03); border: 1px solid var(--neon-purple);
+  color: var(--neon-purple); font-family: var(--font-display); font-size: 1.2rem;
+  font-weight: 700; letter-spacing: 3px; cursor: pointer; position: relative; overflow: hidden;
+  transition: all 0.4s ease;
+  
+  &:hover:not(:disabled) {
+    background: var(--neon-purple); color: white; box-shadow: 0 0 30px var(--neon-purple);
+  }
+}
+
+.terminal-footer { margin-top: 40px; display: flex; flex-direction: column; gap: 12px; align-items: center; }
+.meta-row { display: flex; gap: 12px; font-size: 0.8rem; letter-spacing: 1px; }
+.neon-link { color: var(--neon-purple); text-decoration: none; font-weight: 700; &:hover { text-shadow: 0 0 10px var(--neon-purple); } }
+.dim-link { color: var(--text-muted); text-decoration: none; &:hover { color: white; } }
+
+.data-decor { position: absolute; bottom: 40px; right: 40px; font-size: 0.7rem; color: var(--neon-purple); opacity: 0.2; font-family: monospace; }

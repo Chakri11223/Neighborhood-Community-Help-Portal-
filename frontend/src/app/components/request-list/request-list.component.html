@@ -1,50 +1,93 @@
-<div class="list-container">
-    <div class="header">
-        <h1>{{ userRole === 'Resident' ? 'My Requests' : 'Community Requests' }}</h1>
-        <button mat-raised-button color="primary" routerLink="/requests/new" *ngIf="userRole === 'Resident'">
-            <mat-icon>add</mat-icon> Post New Request
+<div class="requests-dashboard fade-in">
+  
+  <!-- Header / Filter Bar -->
+  <header class="dashboard-header">
+    <div class="header-content">
+      <div class="text-group">
+        <h1 class="page-title text-gradient">{{ 'LIST.TITLE' | translate }}</h1>
+        <p class="page-subtitle">{{ 'LIST.SUBTITLE' | translate }}</p>
+      </div>
+      
+      <div class="action-group">
+         <button routerLink="/requests/new" *ngIf="userRole === 'Resident'" class="btn btn-primary btn-glow">
+           <span class="material-icons-round">add_circle</span>
+           <span>{{ 'LIST.NEW_BTN' | translate }}</span>
+         </button>
+      </div>
+    </div>
+
+    <!-- Glass Filter Bar -->
+    <div class="filter-bar glass-panel">
+      <div class="search-input">
+        <span class="material-icons-round">search</span>
+        <input type="text" [placeholder]="'LIST.SEARCH_PLACEHOLDER' | translate" #searchInput>
+      </div>
+      
+      <div class="filter-pills">
+        <button class="pill active">{{ 'LIST.FILTER_ALL' | translate }}</button>
+        <button class="pill">{{ 'LIST.FILTER_PENDING' | translate }}</button>
+        <button class="pill">{{ 'LIST.FILTER_IN_PROGRESS' | translate }}</button>
+        <button class="pill">{{ 'LIST.FILTER_COMPLETED' | translate }}</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Masonry Grid -->
+  <div class="masonry-grid" *ngIf="!loading && requests.length > 0">
+    <div class="request-card glass-panel" *ngFor="let req of requests" [style.animation-delay]="'100ms'">
+      <!-- Category Icon -->
+      <div class="card-icon-wrapper" [ngClass]="getCategoryColor(req.category)">
+        <span class="material-icons-round">{{ getCategoryIcon(req.category) }}</span>
+      </div>
+      
+      <!-- Status Badge -->
+      <div class="status-badge" [ngClass]="req.status.toLowerCase().replace(' ', '-')">
+        <span class="dot"></span>
+        {{ req.status }}
+      </div>
+
+      <div class="card-content">
+        <h3 class="card-title">{{ req.title }}</h3>
+        <p class="card-desc">{{ req.description | slice:0:120 }}{{ req.description.length > 120 ? '...' : '' }}</p>
+        
+        <div class="meta-row">
+          <div class="meta-item">
+            <span class="material-icons-round">calendar_today</span>
+            {{ req.created_at | date:'MMM d' }}
+          </div>
+          <div class="meta-item">
+            <span class="material-icons-round">category</span>
+            {{ req.category }}
+          </div>
+        </div>
+      </div>
+
+      <div class="card-footer">
+        <div class="user-info">
+          <div class="avatar-mini">{{ 'U' }}</div> <!-- Placeholder for user initial/avatar -->
+          <span class="username">Resident</span>
+        </div>
+        
+        <button class="action-btn" [routerLink]="['/requests', req.id, 'status']">
+          <span>View</span>
+          <span class="material-icons-round">arrow_forward</span>
         </button>
+      </div>
     </div>
+  </div>
 
-    <div *ngIf="loading" class="spinner-container">
-        <mat-spinner diameter="50"></mat-spinner>
+  <!-- Empty State -->
+  <div *ngIf="!loading && requests.length === 0" class="empty-state">
+    <div class="empty-icon glass-panel">
+      <span class="material-icons-round">inbox</span>
     </div>
+    <h3>No Requests Found</h3>
+    <p>Be the first to post something needed in the community!</p>
+  </div>
 
-    <div *ngIf="!loading && requests.length === 0" class="empty-state">
-        <p>No requests found.</p>
-    </div>
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading-grid">
+    <div class="skeleton-card" *ngFor="let i of [1,2,3,4,5,6]"></div>
+  </div>
 
-    <div class="grid" *ngIf="!loading && requests.length > 0">
-        <mat-card *ngFor="let req of requests" class="request-card">
-            <mat-card-header>
-                <div mat-card-avatar class="avatar-placeholder">
-                    <mat-icon>person</mat-icon>
-                </div>
-                <mat-card-title>{{ req.title }}</mat-card-title>
-                <mat-card-subtitle>{{ req.created_at | date }} • {{ req.category }}</mat-card-subtitle>
-            </mat-card-header>
-
-            <mat-card-content>
-                <p class="description">{{ req.description | slice:0:100 }}{{ req.description.length > 100 ? '...' : ''
-                    }}</p>
-
-                <div class="chips">
-                    <mat-chip-set>
-                        <mat-chip [color]="getStatusColor(req.status)" highlighted>{{ req.status }}</mat-chip>
-                        <mat-chip *ngIf="req.helper_name" class="helper-chip">By: {{ req.helper_name }}</mat-chip>
-                    </mat-chip-set>
-                </div>
-            </mat-card-content>
-
-            <mat-card-actions align="end">
-                <button mat-button color="primary" [routerLink]="['/requests', req.id, 'status']">
-                    View Details
-                </button>
-                <button mat-icon-button color="warn" *ngIf="userRole === 'Resident'" (click)="onDelete(req)"
-                    title="Delete Request">
-                    <mat-icon>delete</mat-icon>
-                </button>
-            </mat-card-actions>
-        </mat-card>
-    </div>
 </div>

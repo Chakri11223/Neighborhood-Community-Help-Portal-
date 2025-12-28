@@ -1,81 +1,95 @@
-<div class="auth-layout">
 
-    <!-- Left Side: Brand & Welcome -->
-    <div class="brand-panel">
-        <div class="brand-content">
-            <mat-icon class="brand-icon">how_to_reg</mat-icon>
-            <h1>Join the<br>Community</h1>
-            <p>Sign up today to request assistance or offer your skills to help your neighbors.</p>
-        </div>
+<div class="terminal-container">
+  <!-- HUD Elements -->
+  <div class="hud-frame top-left"></div>
+  <div class="hud-frame top-right"></div>
+  <div class="hud-frame bottom-left"></div>
+  <div class="hud-frame bottom-right"></div>
+  
+  <div class="scanner-gate">
+    <div class="scan-line"></div>
+  </div>
+
+  <div class="terminal-card wide fade-in">
+    <div class="terminal-header">
+      <div class="status-badge">
+        <span class="pulse-dot"></span>
+        {{ 'REG.IDENTITY_PROTOCOL' | translate }}
+      </div>
+      <h1 class="terminal-title">{{ 'REG.REGISTER_TITLE' | translate }}</h1>
+      <div class="auth-protocol">{{ 'REG.SYSTEM_MODULE' | translate }}</div>
     </div>
 
-    <!-- Right Side: Registration Form -->
-    <div class="form-panel">
-        <div class="form-container">
-            <h2>Create Account</h2>
-            <p class="subtitle">Join as a Resident or a Helper.</p>
-
-            <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
-
-                <mat-form-field appearance="outline" class="full-width">
-                    <mat-label>Full Name</mat-label>
-                    <input matInput formControlName="name">
-                    <mat-icon matSuffix>person</mat-icon>
-                    <mat-error *ngIf="registrationForm.get('name')?.hasError('required')">Name is required</mat-error>
-                </mat-form-field>
-
-                <mat-form-field appearance="outline" class="full-width">
-                    <mat-label>Email Address</mat-label>
-                    <input matInput formControlName="email" type="email">
-                    <mat-icon matSuffix>email</mat-icon>
-                    <mat-error *ngIf="registrationForm.get('email')?.hasError('required')">Email is required</mat-error>
-                </mat-form-field>
-
-                <mat-form-field appearance="outline" class="full-width">
-                    <mat-label>Password</mat-label>
-                    <input matInput formControlName="password" type="password">
-                    <mat-icon matSuffix>lock</mat-icon>
-                    <mat-error *ngIf="registrationForm.get('password')?.hasError('required')">Password is
-                        required</mat-error>
-                </mat-form-field>
-
-                <div class="row">
-                    <mat-form-field appearance="outline" class="half-width">
-                        <mat-label>I want to...</mat-label>
-                        <mat-select formControlName="role">
-                            <mat-option value="Resident">Get Help</mat-option>
-                            <mat-option value="Helper">Give Help</mat-option>
-                        </mat-select>
-                        <mat-error *ngIf="registrationForm.get('role')?.hasError('required')">Role is
-                            required</mat-error>
-                    </mat-form-field>
-
-                    <mat-form-field appearance="outline" class="half-width">
-                        <mat-label>Location (Area)</mat-label>
-                        <input matInput formControlName="location">
-                        <mat-icon matSuffix>place</mat-icon>
-                        <mat-error *ngIf="registrationForm.get('location')?.hasError('required')">Location is
-                            required</mat-error>
-                    </mat-form-field>
-                </div>
-
-                <mat-form-field appearance="outline" class="full-width">
-                    <mat-label>Contact Info (Phone)</mat-label>
-                    <input matInput formControlName="contact_info">
-                    <mat-icon matSuffix>phone</mat-icon>
-                </mat-form-field>
-
-                <button mat-flat-button color="primary" type="submit" [disabled]="registrationForm.invalid || loading"
-                    class="full-width submit-btn">
-                    {{ loading ? 'Creating Account...' : 'Register' }}
-                </button>
-            </form>
-
-            <div class="auth-footer">
-                <span>Already have an account?</span>
-                <a routerLink="/login">Sign In</a>
-            </div>
+    <!-- Registration Form -->
+    <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()" class="terminal-form">
+      
+      <div class="form-grid">
+        <div class="input-field">
+          <div class="field-label">{{ 'REG.NAME_LABEL' | translate }}</div>
+          <input formControlName="name" type="text" spellcheck="false" autocomplete="off">
+          <div class="field-bar"></div>
         </div>
-    </div>
 
+        <div class="input-field">
+          <div class="field-label">{{ 'REG.EMAIL_LABEL' | translate }}</div>
+          <input formControlName="email" type="email" spellcheck="false" autocomplete="off">
+          <div class="field-bar"></div>
+        </div>
+      </div>
+
+      <div class="input-field">
+        <div class="field-label">{{ 'REG.PASSWORD_LABEL' | translate }}</div>
+        <input formControlName="password" [type]="hidePassword ? 'password' : 'text'" autocomplete="off">
+        <div class="field-bar"></div>
+        <button type="button" class="eye-btn" (click)="hidePassword = !hidePassword">
+          <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+      </div>
+
+      <div class="form-grid">
+        <div class="input-field">
+          <div class="field-label">{{ 'REG.ROLE_LABEL' | translate }}</div>
+          <select formControlName="role" class="neon-select">
+            <option value="Resident">{{ 'REG.ROLE_RESIDENT' | translate }}</option>
+            <option value="Helper">{{ 'REG.ROLE_HELPER' | translate }}</option>
+          </select>
+          <div class="field-bar"></div>
+        </div>
+
+        <div class="input-field">
+          <div class="field-label">{{ 'REG.LOCATION_LABEL' | translate }}</div>
+          <input formControlName="location" type="text" spellcheck="false" autocomplete="off">
+          <div class="field-bar"></div>
+        </div>
+      </div>
+
+      <div class="input-field">
+        <div class="field-label">{{ 'REG.CONTACT_LABEL' | translate }}</div>
+        <input formControlName="contact_info" type="text" spellcheck="false" autocomplete="off">
+        <div class="field-bar"></div>
+      </div>
+
+      <button type="submit" [disabled]="registrationForm.invalid || loading" class="auth-btn">
+        <span class="btn-text">{{ (loading ? 'REG.ENROLLING' : 'REG.ENROLL_BTN') | translate }}</span>
+        <div class="btn-glitch"></div>
+      </button>
+    </form>
+
+    <!-- Footer Links -->
+    <div class="terminal-footer">
+      <div class="meta-row">
+        <span>{{ 'REG.ACCOUNT_EXISTS' | translate }}</span>
+        <a routerLink="/login" class="neon-link">{{ 'REG.AUTHORIZE_LINK' | translate }}</a>
+      </div>
+      <div class="meta-row">
+        <a routerLink="/" class="dim-link">{{ 'REG.ABORT_LINK' | translate }}</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Background Data Stream Decor -->
+  <div class="data-decor">
+    <div class="data-col">ENC [AES-256]</div>
+    <div class="data-col">LOCAL_IP [127.0.0.1]</div>
+  </div>
 </div>

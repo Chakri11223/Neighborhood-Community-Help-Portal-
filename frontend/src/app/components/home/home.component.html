@@ -1,0 +1,133 @@
+<!-- Hero Section -->
+<section class="hero-section center-content">
+  <div class="container reveal-hidden">
+    <div class="hero-content reveal-hidden">
+      <div class="hero-badge">{{ 'HOME.PROTOCOL_TITLE' | translate }} v2.4</div>
+      <h1 class="hero-title text-glow">
+        {{ 'HOME.HERO_TITLE' | translate }}
+      </h1>
+      <p class="hero-subtitle">
+        {{ 'HOME.HERO_SUBTITLE' | translate }}
+      </p>
+      
+      <div class="hero-actions">
+        <button mat-raised-button color="primary" class="btn-primary" (click)="scrollToSection('features')">
+          <mat-icon>explore</mat-icon>
+          {{ 'HOME.CTA_POST' | translate }}
+        </button>
+        <button mat-stroked-button class="btn-secondary">
+          <mat-icon>info</mat-icon>
+          {{ 'HOME.CTA_BROWSE' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section class="features-section" id="features">
+  <div class="container relative reveal-hidden">
+    <div class="hud-corners top-left"></div>
+    <div class="hud-corners top-right"></div>
+    <div class="hud-corners bottom-left"></div>
+    <div class="hud-corners bottom-right"></div>
+
+    <div class="features-header">
+      <div class="header-metadata">{{ 'HOME.FEATURES_METADATA' | translate }}</div>
+      <h2 class="features-title">{{ 'HOME.FEATURES_TITLE' | translate }}</h2>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card scale-in" *ngFor="let feature of features; let i = index" 
+           [style.animation-delay]="i * 0.1 + 's'">
+        <div class="feature-id">ID_0{{ i + 1 }}</div>
+        <div class="feature-icon">
+          <mat-icon>{{ feature.icon }}</mat-icon>
+        </div>
+        <div class="text-content">
+          <h3 class="feature-title" [attr.data-text]="'HOME.FEATURE_' + (i + 1) + '_TITLE' | translate">
+            {{ 'HOME.FEATURE_' + (i + 1) + '_TITLE'| translate }}
+          </h3>
+          <p class="feature-description">{{ 'HOME.FEATURE_' + (i + 1) + '_DESC' | translate }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- How It Works Section (Roadmap) -->
+<section class="how-it-works-section" id="how-it-works">
+  <div class="container reveal-hidden">
+    <div class="section-header">
+      <h2 class="section-title">{{ 'HOME.PROTOCOL_TITLE' | translate }}</h2>
+      <p class="section-subtitle">{{ 'HOME.PROTOCOL_SUBTITLE' | translate }}</p>
+    </div>
+
+    <div class="steps-container">
+      <div class="roadmap-thread"></div>
+      
+      <div class="step-card" *ngFor="let step of steps; let i = index"
+           [style.animation-delay]="i * 0.2 + 's'">
+        
+        <div class="step-node">
+          <div class="node-pulse"></div>
+          <div class="step-number">{{ step.number }}</div>
+        </div>
+
+        <div class="step-content glass-panel">
+          <div class="phase-label">{{ 'HOME.PHASE_LABEL' | translate }}{{ step.number }}::{{ 'HOME.INITIALIZE' | translate }}</div>
+          <h3 class="step-title">{{ 'HOME.STEP_' + step.number + '_TITLE' | translate }}</h3>
+          <p class="step-description">{{ 'HOME.STEP_' + step.number + '_DESC' | translate }}</p>
+          
+          <div class="step-decor">
+            <span class="material-icons-round">{{ step.icon }}</span>
+            <div class="decor-line"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <!-- Stats Section -->
+  <section class="stats-section">
+    <div class="container relative reveal-hidden">
+      <div class="scanning-grid"></div>
+      <div class="stats-grid">
+        <div class="stat-card" *ngFor="let stat of stats; let i = index">
+          <div class="stat-value">
+            <span class="number">{{ stat.value }}</span>
+            <span class="suffix">{{ stat.suffix }}</span>
+          </div>
+          <div class="stat-label">{{ 'STATS.LABEL_' + i | translate }}</div>
+          <div class="stat-glow"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+  <div class="container reveal-hidden">
+    <div class="cta-content">
+      <h2 class="cta-title">{{ 'HOME.CTA_TITLE' | translate }}</h2>
+      <p class="cta-subtitle">
+        {{ 'HOME.CTA_SUBTITLE' | translate }}
+      </p>
+      <div class="cta-buttons">
+        <button mat-raised-button class="btn btn-primary btn-large" routerLink="/register">
+          <mat-icon>person_add</mat-icon>
+          {{ 'HOME.CTA_JOIN_RESIDENT' | translate }}
+        </button>
+        <button mat-raised-button class="btn btn-secondary btn-large" routerLink="/register">
+          <mat-icon>volunteer_activism</mat-icon>
+          {{ 'HOME.CTA_BECOME_HELPER' | translate }}
+        </button>
+      </div>
+      <p class="cta-login">
+        {{ 'HOME.CTA_LOGIN_PROMPT' | translate }} 
+        <a routerLink="/login" class="login-link">{{ 'HOME.CTA_SIGN_IN' | translate }}</a>
+      </p>
+    </div>
+  </div>
+</section>

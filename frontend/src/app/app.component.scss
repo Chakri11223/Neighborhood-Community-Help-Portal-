@@ -1,102 +1,434 @@
-.app-container {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+// ============================================
+// 🌌 SHELL LAYOUT & AMBIENT EFFECTS
+// ============================================
+
+.glass-blobs {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  filter: blur(80px);
+  opacity: 0.6;
 }
 
-// Logo and Titles
-.logo-area {
+.grain-overlay {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  z-index: 1000;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+  mix-blend-mode: overlay;
+}
+
+.scanlines {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  z-index: 1001;
+  pointer-events: none;
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%,
+    rgba(0, 0, 0, 0.05) 50%
+  ), linear-gradient(
+    90deg,
+    rgba(255, 0, 0, 0.01),
+    rgba(0, 255, 0, 0.005),
+    rgba(0, 0, 255, 0.01)
+  );
+  background-size: 100% 4px, 3px 100%;
+  opacity: 0.3;
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  mix-blend-mode: screen;
+  animation: drift 20s infinite alternate ease-in-out;
+  
+  &-1 {
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(10, 207, 254, 0.4) 0%, transparent 70%);
+    top: -100px;
+    left: -100px;
+  }
+  
+  &-2 {
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(73, 90, 255, 0.4) 0%, transparent 70%);
+    bottom: -50px;
+    right: -50px;
+    animation-delay: -5s;
+    animation-duration: 25s;
+  }
+  
+  &-3 {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(183, 33, 255, 0.3) 0%, transparent 70%);
+    top: 40%;
+    left: 40%;
+    animation-delay: -10s;
+    animation-duration: 30s;
+  }
+}
+
+@keyframes drift {
+  0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+  50% { transform: translate(100px, 50px) scale(1.1) rotate(180deg); }
+  100% { transform: translate(-50px, 100px) scale(0.9) rotate(360deg); }
+}
+
+.locale-switcher {
   display: flex;
   align-items: center;
   gap: 12px;
+  margin-left: 16px;
+  padding-left: 16px;
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+
+  .locale-dropdown {
+    display: flex;
+    gap: 8px;
+    
+    button {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.65rem;
+      padding: 2px 6px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: var(--font-display);
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+      }
+
+      &.active {
+        background: var(--neon-blue);
+        color: #000;
+        border-color: var(--neon-blue);
+        box-shadow: 0 0 10px rgba(10, 207, 254, 0.3);
+      }
+    }
+  }
+
+  .locale-selector-mini {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2px 8px;
+    border-radius: 12px;
+    cursor: pointer;
+    
+    span { font-size: 0.7rem; font-weight: 700; color: var(--neon-blue); }
+    .material-icons-round { font-size: 14px; }
+  }
 }
 
-.logo-icon {
-  transform: scale(1.5);
-}
-
-.titles {
+.os-shell {
+  height: 100vh;
+  width: 100vw;
   display: flex;
   flex-direction: column;
-  line-height: 1.1;
-
-  .main-title {
-    font-size: 1.2rem;
-    font-weight: 500;
-  }
-
-  .sub-title {
-    font-size: 0.65rem;
-    opacity: 0.9;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
+  position: relative;
+  overflow: hidden;
 }
 
-.spacer {
-  flex: 1 1 auto;
-}
+// ============================================
+// 🏝️ DYNAMIC ISLAND
+// ============================================
 
-.content {
-  padding: 30px;
-  max-width: 1200px;
-  margin: 0 auto;
+.dynamic-island-wrapper {
+  position: fixed;
+  top: 12px;
+  left: 0;
   width: 100%;
-  box-sizing: border-box;
-  flex: 1; // Pushes footer down
+  display: flex;
+  justify-content: center;
+  z-index: 2000;
+  pointer-events: none; // Let clicks pass through sides
 }
 
-.welcome-text {
-  margin-right: 16px;
-  font-size: 14px;
-  font-weight: 500;
-}
-
-.active {
-  background: rgba(255, 255, 255, 0.15);
-  border-bottom: 3px solid #ffd740; // match accent roughly
-}
-
-mat-toolbar {
-  // The color is handled by global theme (primary = navy), 
-  // but we added .gov-header-bar in styles.scss for the border.
-  padding: 0 24px;
-  gap: 16px; // Add spacing between items (Login/Register)
-
-  .nav-switch-btn {
-    color: #ffd740 !important;
-    border-color: rgba(255, 215, 64, 0.5) !important;
-    margin: 0 8px;
-
-    mat-icon {
-      margin-right: 4px;
-    }
-
-    &:hover {
-      background-color: rgba(255, 215, 64, 0.1);
-    }
-  }
-}
-
-// Official Footer
-.gov-footer {
-  background-color: #263238; // Dark Blue Grey
+.island-capsule {
+  pointer-events: auto;
+  background: black;
   color: white;
-  padding: 20px 0;
-  text-align: center;
-  margin-top: auto;
-  border-top: 4px solid #ffd740; // Accent color
-
-  .footer-content {
-    font-size: 0.9rem;
-
-    p {
-      margin: 5px 0;
-    }
-  }
-
-  .footer-links {
-    font-size: 0.8rem;
-    opacity: 0.7;
+  height: 44px;
+  border-radius: 40px;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  min-width: 200px;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: default;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  
+  &:hover {
+    transform: scale(1.05) translateY(2px);
+    background: rgba(10, 10, 10, 0.95);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.7), 0 0 20px rgba(10, 207, 254, 0.2);
+    border-color: rgba(10, 207, 254, 0.3);
   }
 }
+
+.island-content {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  font-weight: 600;
+  
+  .island-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-muted);
+    
+    .status-icon { font-size: 16px; }
+  }
+  
+  .island-center {
+    flex: 1;
+    text-align: center;
+    color: white;
+    font-weight: 700;
+    white-space: nowrap;
+    font-family: var(--font-display);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+  }
+  
+  .island-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    
+    .user-pill { color: var(--text-muted); }
+    
+    .avatar-micro {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #00C6FF, #0072FF);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: white;
+    }
+  }
+}
+
+// ============================================
+// 🪟 MAIN STAGE (Windows)
+// ============================================
+
+.stage-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; // Start from top
+  padding: 0; // Remove padding so no "cut"
+  perspective: 1000px;
+  overflow: hidden; // Shell handles overflow
+}
+
+.window-container {
+  width: 100%;
+  max-width: 1400px;
+  height: 100%;
+  
+  // Internal scroll logic
+  overflow-y: auto; 
+  scroll-behavior: smooth;
+  
+  // High-End Glass
+  background: rgba(255, 255, 255, 0.03) !important;
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  margin: 10px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  
+  // Top padding to push content below Island initially, 
+  // but it's inside the scroll container, so it stays at top.
+  padding: 80px 24px 60px; // Increased top padding to clear the 44px Island + 12px gap
+  
+  /* Scrollbar Styling inside window */
+  &::-webkit-scrollbar { width: 6px; }
+  &::-webkit-scrollbar-track { background: transparent; }
+  &::-webkit-scrollbar-thumb { 
+    background: rgba(255,255,255,0.2); 
+    border-radius: 4px; 
+    &:hover { background: rgba(255,255,255,0.4); }
+  }
+}
+
+// ============================================
+// ⚓ FLOATING DOCK
+// ============================================
+
+.dock-wrapper {
+  position: fixed;
+  bottom: 8px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  z-index: 2000;
+  pointer-events: none;
+}
+
+.dock-glass {
+  pointer-events: auto;
+  background: rgba(20, 20, 35, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 4px 6px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center; // Switch to center for perfect alignment
+  gap: 12px;
+  box-shadow: var(--dock-shadow);
+  transform-origin: bottom center;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    border-radius: inherit;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%, rgba(255,255,255,0.05) 100%);
+    pointer-events: none;
+  }
+  
+  &:hover {
+    background: rgba(20, 20, 35, 0.85);
+    transform: scale(1.02);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 30px rgba(10, 207, 254, 0.2);
+  }
+}
+
+.dock-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  
+  // Power Button Reset
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  
+  .icon-box {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    transition: all 0.2s ease;
+    
+    // Gradients
+    &.gradient-blue { background: linear-gradient(135deg, #0ACFFE 0%, #495AFF 100%); }
+    &.gradient-purple { background: linear-gradient(135deg, #b721ff 0%, #21d4fd 100%); }
+    &.gradient-pink { background: linear-gradient(135deg, #FF0844 0%, #FFB199 100%); }
+    &.gradient-cyan { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+    &.gray { 
+      background: rgba(255, 255, 255, 0.15); 
+      border: 1px solid rgba(255, 255, 255, 0.2); 
+      color: var(--text-muted);
+    }
+    
+    .material-icons-round { font-size: 16px; }
+  }
+  
+  // Active Dot
+  .indicator {
+    position: absolute;
+    bottom: -8px; // Pull out of flow so it doesn't push the icon
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 4px;
+    background: white;
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.3s;
+    box-shadow: 0 0 8px white;
+  }
+  
+  &.active .indicator { opacity: 1; }
+  
+    // Hover Effect (Mac Dock Physics approximation)
+  &:hover {
+    transform: translateY(-12px) scale(1.2);
+    z-index: 10;
+    
+    .icon-box {
+       box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 15px rgba(255,255,255,0.2);
+    }
+  }
+  
+  &.big-action {
+    margin: 0 4px;
+    .icon-box { width: 34px; height: 34px; border-radius: 10px; }
+  }
+}
+
+.dock-divider {
+  width: 1px;
+  height: 20px; // Shrunk from 40px to match new icon scale
+  background: rgba(255,255,255,0.1);
+  margin: 0 8px;
+  align-self: center;
+}
+
+// Actions
+.danger:hover .icon-box {
+  background: #ff4757;
+}
+
+// ============================================
+// 🎭 ANIMATIONS
+// ============================================
+.animate-slide-down {
+  animation: slideDown 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.fade-scale-in {
+  animation: fadeScale 0.4s ease-out forwards;
+}
+
+@keyframes slideDown { from{transform: translateY(-100%);} to{transform: translateY(0);} }
+@keyframes slideUp { from{transform: translateY(100%);} to{transform: translateY(0);} }
+@keyframes fadeScale { from{opacity:0; transform: scale(0.95);} to{opacity:1; transform: scale(1);} }

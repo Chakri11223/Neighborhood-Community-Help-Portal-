@@ -22,6 +22,15 @@ export interface HelpRequest {
   updated_at?: Date;
 }
 
+export interface Message {
+  id?: number;
+  request_id: number;
+  sender_id: number;
+  content: string;
+  timestamp?: Date;
+  sender_name?: string;
+}
+
 export interface AuthRequest extends Request {
   user?: {
     id: number;

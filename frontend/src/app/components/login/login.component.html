@@ -1,47 +1,68 @@
-<div class="auth-layout">
 
-    <!-- Left Side: Brand & Welcome -->
-    <div class="brand-panel">
-        <div class="brand-content">
-            <mat-icon class="brand-icon">account_balance</mat-icon>
-            <h1>Neighborhood<br>Help Portal</h1>
-            <p>The official community support system connecting residents with trusted helpers.</p>
-        </div>
+<div class="terminal-container">
+  <!-- HUD Elements -->
+  <div class="hud-frame top-left"></div>
+  <div class="hud-frame top-right"></div>
+  <div class="hud-frame bottom-left"></div>
+  <div class="hud-frame bottom-right"></div>
+  
+  <div class="scanner-gate">
+    <div class="scan-line"></div>
+  </div>
+
+  <div class="terminal-card fade-in">
+    <!-- Terminal Header -->
+    <div class="terminal-header">
+      <div class="status-badge">
+        <span class="pulse-dot"></span>
+        {{ 'AUTH.SECURE_CONNECTION' | translate }}
+      </div>
+      <h1 class="terminal-title">{{ 'AUTH.ACCESS_TITLE' | translate }}</h1>
+      <div class="auth-protocol">{{ 'AUTH.PROTOCOL_VERSION' | translate }}</div>
     </div>
 
-    <!-- Right Side: Login Form -->
-    <div class="form-panel">
-        <div class="form-container">
-            <h2>Welcome Back</h2>
-            <p class="subtitle">Please enter your credentials to access the portal.</p>
-
-            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-                <mat-form-field appearance="outline" class="full-width">
-                    <mat-label>Email Address</mat-label>
-                    <input matInput formControlName="email" type="email">
-                    <mat-icon matSuffix>email</mat-icon>
-                    <mat-error *ngIf="loginForm.get('email')?.hasError('required')">Email is required</mat-error>
-                    <mat-error *ngIf="loginForm.get('email')?.hasError('email')">Please enter a valid email</mat-error>
-                </mat-form-field>
-
-                <mat-form-field appearance="outline" class="full-width">
-                    <mat-label>Password</mat-label>
-                    <input matInput formControlName="password" type="password">
-                    <mat-icon matSuffix>lock</mat-icon>
-                    <mat-error *ngIf="loginForm.get('password')?.hasError('required')">Password is required</mat-error>
-                </mat-form-field>
-
-                <button mat-flat-button color="primary" type="submit" [disabled]="loginForm.invalid || loading"
-                    class="full-width submit-btn">
-                    {{ loading ? 'Authenticating...' : 'Sign In' }}
-                </button>
-            </form>
-
-            <div class="auth-footer">
-                <span>New Resident or Helper?</span>
-                <a routerLink="/register">Create an Account</a>
-            </div>
+    <!-- Login Form -->
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="terminal-form">
+      
+      <div class="input-field">
+        <div class="field-label">{{ 'AUTH.EMAIL_LABEL' | translate }}</div>
+        <input formControlName="email" type="email" spellcheck="false" autocomplete="off">
+        <div class="field-bar"></div>
+        <div class="error-text" *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid">
+          {{ 'AUTH.ERROR_FORMAT' | translate }}
         </div>
-    </div>
+      </div>
 
+      <div class="input-field">
+        <div class="field-label">{{ 'AUTH.PASSWORD_LABEL' | translate }}</div>
+        <input formControlName="password" [type]="hidePassword ? 'password' : 'text'" autocomplete="off">
+        <div class="field-bar"></div>
+        <button type="button" class="eye-btn" (click)="hidePassword = !hidePassword">
+          <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+      </div>
+
+      <button type="submit" [disabled]="loginForm.invalid || loading" class="auth-btn">
+        <span class="btn-text">{{ (loading ? 'AUTH.AUTHORIZING' : 'AUTH.START_SESSION') | translate }}</span>
+        <div class="btn-glitch"></div>
+      </button>
+    </form>
+
+    <!-- Footer Links -->
+    <div class="terminal-footer">
+      <div class="meta-row">
+        <span>{{ 'AUTH.NEW_USER' | translate }}</span>
+        <a routerLink="/register" class="neon-link">{{ 'AUTH.REGISTER' | translate }}</a>
+      </div>
+      <div class="meta-row">
+        <a routerLink="/" class="dim-link">{{ 'AUTH.ABORT' | translate }}</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Background Data Stream Decor -->
+  <div class="data-decor">
+    <div class="data-col">0101110 0110 1101</div>
+    <div class="data-col">SYS_READY 0xFF92</div>
+  </div>
 </div>

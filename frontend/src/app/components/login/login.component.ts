@@ -9,6 +9,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { AuthService } from '../../services/auth.service';
+import { AnimatedBackgroundComponent } from '../animated-background/animated-background.component';
+
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +25,9 @@ import { AuthService } from '../../services/auth.service';
     MatInputModule,
     MatButtonModule,
     MatSnackBarModule,
-    MatIconModule
+    MatIconModule,
+    TranslateModule,
+    AnimatedBackgroundComponent
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
@@ -30,6 +35,7 @@ import { AuthService } from '../../services/auth.service';
 export class LoginComponent {
   loginForm: FormGroup;
   loading = false;
+  hidePassword = true;
 
   constructor(
     private fb: FormBuilder,

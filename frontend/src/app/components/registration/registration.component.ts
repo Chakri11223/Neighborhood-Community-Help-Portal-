@@ -10,6 +10,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { AuthService } from '../../services/auth.service';
+import { AnimatedBackgroundComponent } from '../animated-background/animated-background.component';
+
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-registration',
@@ -24,7 +27,9 @@ import { AuthService } from '../../services/auth.service';
     MatButtonModule,
     MatSelectModule,
     MatSnackBarModule,
-    MatIconModule
+    MatIconModule,
+    AnimatedBackgroundComponent,
+    TranslateModule
   ],
   templateUrl: './registration.component.html',
   styleUrl: './registration.component.scss'
@@ -33,6 +38,7 @@ export class RegistrationComponent {
   registrationForm: FormGroup;
   roles = ['Resident', 'Helper']; // Admin usually not self-registered in public apps, but requirements allowed it? Requirement: "Role selection (Resident / Helper)"
   loading = false;
+  hidePassword = true;
 
   constructor(
     private fb: FormBuilder,

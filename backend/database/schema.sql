@@ -29,3 +29,13 @@ CREATE TABLE HelpRequests (
     FOREIGN KEY (resident_id) REFERENCES Users(id) ON DELETE CASCADE,
     FOREIGN KEY (helper_id) REFERENCES Users(id) ON DELETE SET NULL
 );
+
+CREATE TABLE IF NOT EXISTS Messages (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    request_id INT NOT NULL,
+    sender_id INT NOT NULL,
+    content TEXT NOT NULL,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (request_id) REFERENCES HelpRequests(id) ON DELETE CASCADE,
+    FOREIGN KEY (sender_id) REFERENCES Users(id) ON DELETE CASCADE
+);

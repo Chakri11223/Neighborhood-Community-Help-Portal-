@@ -1,1 +1,53 @@
-<p>chat works!</p>
+<div class="chat-container glass-panel reveal-hidden revealed">
+  <!-- Chat Header -->
+  <div class="chat-header">
+    <button class="icon-btn back-btn" (click)='onBack()'>
+      <span class="material-icons-round">arrow_back_ios_new</span>
+    </button>
+    <div class="header-info">
+      <h2 class="chat-title">REQUEST_CHAT</h2>
+      <span class="chat-subtitle">ID: #{{ requestId | number:'3.0' }}</span>
+    </div>
+    <div class="header-status">
+      <div class="status-dot pulse"></div>
+      <span class="status-label">LIVE</span>
+    </div>
+  </div>
+
+  <!-- Messages List -->
+  <div class="messages-list" #scrollMe>
+    <div *ngFor="let msg of messages" 
+         class="message-wrapper" 
+         [ngClass]="{'self': msg.sender_id === currentUserId}">
+      
+      <div class="message-meta" *ngIf="msg.sender_id !== currentUserId">
+        <span class="sender-name">{{ msg.sender_name }}</span>
+      </div>
+
+      <div class="message-bubble">
+        <div class="message-content">{{ msg.content }}</div>
+        <div class="message-time">{{ msg.timestamp | date:'shortTime' }}</div>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-chat" *ngIf="messages.length === 0">
+      <span class="material-icons-round large">forum</span>
+      <p>No messages yet. Start the conversation!</p>
+    </div>
+  </div>
+
+  <!-- Input Area -->
+  <div class="chat-input-area">
+    <div class="input-wrapper glass-card">
+      <input type="text" 
+             [(ngModel)]="newMessage" 
+             (keyup.enter)="sendMessage()" 
+             placeholder="Type your message..."
+             class="chat-input">
+      <button class="send-btn" [disabled]="!newMessage.trim()" (click)="sendMessage()">
+        <span class="material-icons-round">send</span>
+      </button>
+    </div>
+  </div>
+</div>

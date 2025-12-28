@@ -1,74 +1,127 @@
-<div class="profile-container" *ngIf="user">
-
-    <div class="profile-card">
-        <!-- Hero Header -->
-        <div class="profile-header">
-            <div class="avatar-circle">
-                <mat-icon>person</mat-icon>
-            </div>
-            <div class="header-info">
-                <h1>{{ user.name }}</h1>
-                <span class="role-badge" [ngClass]="user.role.toLowerCase()">
-                    {{ user.role }}
-                </span>
-            </div>
-            <button mat-stroked-button color="basic" class="switch-role-btn" (click)="onSwitchRole()">
-                Switch to {{ user.role === 'Resident' ? 'Helper' : 'Resident' }}
-            </button>
+<div class="profile-dashboard fade-in" *ngIf="user">
+  
+  <!-- Profile Header / Banner -->
+  <div class="profile-header glass-panel">
+    <div class="cover-image"></div>
+    
+    <div class="profile-identity">
+      <div class="avatar-wrapper">
+        <div class="avatar">{{ user.name.charAt(0) }}</div>
+        <div class="status-indicator online"></div>
+      </div>
+      
+      <div class="identity-text">
+        <h1 class="username" *ngIf="!isEditing">{{ user.name }}</h1>
+        <input class="edit-input username-input" *ngIf="isEditing" [(ngModel)]="editData.name" placeholder="Full Name">
+        <div class="badges">
+          <span class="role-badge" [ngClass]="user.role.toLowerCase()">{{ user.role }}</span>
+          <span class="id-badge">ID: #{{ user.id | number:'4.0' }}</span>
         </div>
+      </div>
+      
+      <div class="header-actions">
+        <ng-container *ngIf="!isEditing">
+          <button class="btn btn-secondary switch-btn" (click)="onSwitchRole()">
+            <span class="material-icons-round">swap_horiz</span>
+            {{ 'PROFILE.SWITCH_VIEW' | translate }}
+          </button>
+          <button class="btn btn-primary edit-btn" (click)="toggleEdit()">
+            <span class="material-icons-round">edit</span>
+            {{ 'PROFILE.EDIT_PROFILE' | translate }}
+          </button>
+        </ng-container>
 
-        <!-- Details Grid -->
-        <div class="profile-content">
-            <h2>Personal Information</h2>
-            <div class="info-grid">
-
-                <div class="info-item">
-                    <div class="icon-box">
-                        <mat-icon>email</mat-icon>
-                    </div>
-                    <div class="info-text">
-                        <label>Email Address</label>
-                        <span>{{ user.email }}</span>
-                    </div>
-                </div>
-
-                <div class="info-item">
-                    <div class="icon-box">
-                        <mat-icon>phone</mat-icon>
-                    </div>
-                    <div class="info-text">
-                        <label>Contact Number</label>
-                        <span>{{ user.contact_info || 'Not Provided' }}</span>
-                    </div>
-                </div>
-
-                <div class="info-item">
-                    <div class="icon-box">
-                        <mat-icon>place</mat-icon>
-                    </div>
-                    <div class="info-text">
-                        <label>Location</label>
-                        <span>{{ user.location || 'Not Provided' }}</span>
-                    </div>
-                </div>
-
-                <div class="info-item">
-                    <div class="icon-box">
-                        <mat-icon>verified_user</mat-icon>
-                    </div>
-                    <div class="info-text">
-                        <label>Account Status</label>
-                        <span class="status-active">Active Member</span>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- ID Card Footer look -->
-        <div class="profile-footer">
-            <p>Official ID: #{{ user.id | number:'4.0' }}</p>
-        </div>
+        <ng-container *ngIf="isEditing">
+          <button class="btn btn-secondary cancel-btn" (click)="onCancel()">
+            <span class="material-icons-round">close</span>
+            {{ 'PROFILE.CANCEL' | translate }}
+          </button>
+          <button class="btn btn-primary save-btn" (click)="onSave()">
+            <span class="material-icons-round">save</span>
+            {{ 'PROFILE.SAVE_CHANGES' | translate }}
+          </button>
+        </ng-container>
+      </div>
     </div>
+  </div>
+
+  <div class="profile-dashboard-content reveal-hidden">
+    <!-- Quick Stats -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="icon-box blue">
+          <span class="material-icons-round">calendar_today</span>
+        </div>
+        <div class="stat-info">
+          <span class="value">Dec 2024</span>
+          <span class="label">{{ 'PROFILE.MEMBER_SINCE' | translate }}</span>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="icon-box purple">
+          <span class="material-icons-round">verified</span>
+        </div>
+        <div class="stat-info">
+          <span class="value">4.8</span>
+          <span class="label">{{ 'PROFILE.REPUTATION' | translate }}</span>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="icon-box orange">
+          <span class="material-icons-round">handshake</span>
+        </div>
+        <div class="stat-info">
+          <span class="value">24</span>
+          <span class="label">HELPS_GIVEN</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Personal Information Section -->
+    <div class="details-section reveal-hidden">
+      <h3 class="section-title">
+        <span class="material-icons-round">person_pin</span>
+        {{ 'PROFILE.REPUTATION' | translate }} <!-- Using as placeholder for Personal Info if key missing -->
+      </h3>
+      
+      <div class="info-grid">
+        <div class="info-group">
+          <label>{{ 'REG.EMAIL_LABEL' | translate }}</label>
+          <div class="value-box">
+            <span class="material-icons-round">email</span>
+            {{ user.email }}
+          </div>
+        </div>
+        
+        <div class="info-group">
+          <label>{{ 'PROFILE.CONTACT' | translate }}</label>
+          <div class="value-box" *ngIf="!isEditing">
+            <span class="material-icons-round">phone</span>
+            {{ user.contact_info || 'Not provided' }}
+          </div>
+          <input class="edit-input detail-input" *ngIf="isEditing" [(ngModel)]="editData.contact_info" placeholder="Enter phone number">
+        </div>
+        
+        <div class="info-group">
+          <label>{{ 'PROFILE.LOCATION' | translate }}</label>
+          <div class="value-box" *ngIf="!isEditing">
+            <span class="material-icons-round">place</span>
+            {{ user.location || 'Not provided' }}
+          </div>
+          <input class="edit-input detail-input" *ngIf="isEditing" [(ngModel)]="editData.location" placeholder="Enter location">
+        </div>
+        
+        <div class="info-group">
+          <label>{{ 'PROFILE.MEMBER_SINCE' | translate }}</label>
+          <div class="value-box">
+            <span class="material-icons-round">history</span>
+            Dec 2024
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </div>

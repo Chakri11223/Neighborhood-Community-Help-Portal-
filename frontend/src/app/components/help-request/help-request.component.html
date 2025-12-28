@@ -1,42 +1,85 @@
-<div class="request-container">
-    <mat-card>
-        <mat-card-header>
-            <mat-card-title>Need Help?</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-            <form [formGroup]="requestForm" (ngSubmit)="onSubmit()">
-                <mat-form-field appearance="outline" class="full-width">
-                    <mat-label>Title</mat-label>
-                    <input matInput formControlName="title" placeholder="e.g., Need groceries delivered">
-                    <mat-error *ngIf="requestForm.get('title')?.hasError('required')">Title is required</mat-error>
-                </mat-form-field>
+<div class="wizard-container fade-in">
+  
+  <div class="wizard-grid">
+    <!-- Left Panel: Guidance -->
+    <div class="guidance-panel glass-panel">
+      <div class="illustration-box">
+        <span class="material-icons-round">campaign</span>
+      </div>
+      
+      <h2>Post a Request</h2>
+      <p>Community members are ready to help. Be specific to get the best response.</p>
+      
+      <ul class="tips-list">
+        <li>
+          <span class="material-icons-round check">check_circle</span>
+          <span>Choose the right category</span>
+        </li>
+        <li>
+          <span class="material-icons-round check">check_circle</span>
+          <span>Describe your need clearly</span>
+        </li>
+        <li>
+          <span class="material-icons-round check">check_circle</span>
+          <span>Be respectful of helpers' time</span>
+        </li>
+      </ul>
+      
+      <div class="back-link">
+        <a routerLink="/requests">
+          <span class="material-icons-round">arrow_back</span>
+          Back to Dashboard
+        </a>
+      </div>
+    </div>
 
-                <mat-form-field appearance="outline" class="full-width">
-                    <mat-label>Category</mat-label>
-                    <mat-select formControlName="category">
-                        <mat-option *ngFor="let cat of categories" [value]="cat">
-                            {{cat}}
-                        </mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="requestForm.get('category')?.hasError('required')">Category is
-                        required</mat-error>
-                </mat-form-field>
+    <!-- Right Panel: Form -->
+    <div class="form-panel glass-panel">
+      <form [formGroup]="requestForm" (ngSubmit)="onSubmit()">
+        
+        <!-- Step 1: Category -->
+        <div class="form-section">
+          <label class="section-label">What kind of help do you need?</label>
+          <div class="category-grid">
+            <label class="category-option" *ngFor="let cat of categories">
+              <input type="radio" formControlName="category" [value]="cat">
+              <div class="category-card">
+                <span class="material-icons-round">{{ getCategoryIcon(cat) }}</span>
+                <span class="cat-name">{{ cat }}</span>
+              </div>
+            </label>
+          </div>
+          <div class="error-msg" *ngIf="requestForm.get('category')?.touched && requestForm.get('category')?.invalid">
+            Please select a category
+          </div>
+        </div>
 
-                <mat-form-field appearance="outline" class="full-width">
-                    <mat-label>Description</mat-label>
-                    <textarea matInput formControlName="description" rows="4"
-                        placeholder="Describe what you need help with..."></textarea>
-                    <mat-error *ngIf="requestForm.get('description')?.hasError('required')">Description is
-                        required</mat-error>
-                </mat-form-field>
+        <!-- Step 2: Details -->
+        <div class="form-section">
+          <label class="section-label">Request Details</label>
+          
+          <div class="input-group">
+            <span class="input-icon material-icons-round">title</span>
+            <input type="text" formControlName="title" placeholder="Give your request a short title...">
+          </div>
+          
+          <div class="input-group textarea-group">
+            <span class="input-icon material-icons-round">description</span>
+            <textarea formControlName="description" rows="5" placeholder="Describe exactly what you need..."></textarea>
+          </div>
+        </div>
 
-                <!-- Optional: File upload for attachments could go here -->
+        <!-- Submit Action -->
+        <div class="form-actions">
+          <button type="submit" [disabled]="requestForm.invalid || loading" class="btn btn-primary btn-block">
+            <span class="material-icons-round" *ngIf="!loading">send</span>
+            <span class="material-icons-round spinner" *ngIf="loading">refresh</span>
+            {{ loading ? 'Publishing...' : 'Publish Request' }}
+          </button>
+        </div>
 
-                <button mat-raised-button color="primary" type="submit" [disabled]="requestForm.invalid || loading"
-                    class="full-width">
-                    {{ loading ? 'Posting...' : 'Post Request' }}
-                </button>
-            </form>
-        </mat-card-content>
-    </mat-card>
+      </form>
+    </div>
+  </div>
+
 </div>
