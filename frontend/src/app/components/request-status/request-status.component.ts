@@ -99,13 +99,6 @@ export class RequestStatusComponent implements OnInit {
       this.request?.helper_id === this.userId;
   }
 
-  // Requirement says: "In-progress" -> "Completed".
-  // "Pending" -> "Accepted".
-  // "Accepted" -> "In-progress"? Or is "Accepted" same as "In-progress"? 
-  // Enum: 'Pending', 'Accepted', 'In-progress', 'Completed'.
-  // Logic: Helper accepts -> Status="Accepted". Then Helper starts work -> Status="In-progress"?
-  // Or maybe "Accepted" implies they are working on it.
-  // I will assume flow: Pending -> Accepted (Assigns Helper) -> In-progress -> Completed.
 
   get nextActionLabel(): string {
     if (this.request?.status === 'Accepted') return 'Start Work';
@@ -121,7 +114,6 @@ export class RequestStatusComponent implements OnInit {
     }
   }
 
-  // Helper accepts pending request
   onAccept() {
     this.updateStatus('Accepted');
   }

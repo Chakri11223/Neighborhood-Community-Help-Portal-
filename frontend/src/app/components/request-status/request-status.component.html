@@ -1,7 +1,6 @@
 <div class="status-container fade-in" *ngIf="request">
 
     <div class="glass-card">
-        <!-- Header: Title & Status -->
         <div class="header-section">
             <div class="request-meta">
                 <h2>{{ request.title }}</h2>
@@ -16,13 +15,11 @@
             </div>
         </div>
 
-        <!-- Description -->
         <div class="description-box">
             <h3>Description</h3>
             <p>{{ request.description }}</p>
         </div>
 
-        <!-- People Involved -->
         <div class="people-grid">
             <div class="person-card">
                 <div class="avatar-placeholder">
@@ -45,15 +42,12 @@
             </div>
         </div>
 
-        <!-- Self-Request Warning -->
         <div class="warning-box" *ngIf="isOwnRequest && userRole === 'Helper'">
             <mat-icon>warning</mat-icon>
             <span>You cannot accept your own request.</span>
         </div>
 
-        <!-- Actions -->
         <div class="action-buttons">
-            <!-- Helper Actions -->
             <button mat-raised-button color="primary" *ngIf="canAccept" (click)="onAccept()">
                 Accept Request
             </button>
@@ -64,7 +58,6 @@
                 {{ nextActionLabel }}
             </button>
 
-            <!-- Cancel/Back -->
             <button mat-stroked-button color="warn" routerLink="/requests">
                 Back
             </button>

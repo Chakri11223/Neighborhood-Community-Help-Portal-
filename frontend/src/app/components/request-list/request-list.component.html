@@ -1,6 +1,5 @@
 <div class="requests-dashboard fade-in">
 
-  <!-- Header / Filter Bar -->
   <header class="dashboard-header">
     <div class="header-content">
       <div class="text-group">
@@ -16,7 +15,6 @@
       </div>
     </div>
 
-    <!-- Glass Filter Bar -->
     <div class="filter-bar glass-panel">
       <div class="search-input">
         <span class="material-icons-round">search</span>
@@ -36,15 +34,12 @@
     </div>
   </header>
 
-  <!-- Masonry Grid -->
   <div class="masonry-grid" *ngIf="!loading && requests.length > 0">
     <div class="request-card glass-panel" *ngFor="let req of requests" [style.animation-delay]="'100ms'">
-      <!-- Category Icon -->
       <div class="card-icon-wrapper" [ngClass]="getCategoryColor(req.category)">
         <span class="material-icons-round">{{ getCategoryIcon(req.category) }}</span>
       </div>
 
-      <!-- Top Actions (Status + Delete) -->
       <div class="card-top-actions">
         <div class="status-badge" [ngClass]="req.status.toLowerCase().replace(' ', '-')">
           <span class="dot"></span>
@@ -74,7 +69,7 @@
 
       <div class="card-footer">
         <div class="user-info">
-          <div class="avatar-mini">{{ 'U' }}</div> <!-- Placeholder for user initial/avatar -->
+          <div class="avatar-mini">{{ 'U' }}</div> 
           <span class="username">Resident</span>
         </div>
         <div class="actions-wrapper">
@@ -87,7 +82,6 @@
     </div>
   </div>
 
-  <!-- Empty State -->
   <div *ngIf="!loading && requests.length === 0" class="empty-state">
     <div class="empty-icon glass-panel">
       <span class="material-icons-round">inbox</span>
@@ -96,9 +90,9 @@
     <p>Be the first to post something needed in the community!</p>
   </div>
 
-  <!-- Loading State -->
   <div *ngIf="loading" class="loading-grid">
     <div class="skeleton-card" *ngFor="let i of [1,2,3,4,5,6]"></div>
   </div>
 
 </div>
+

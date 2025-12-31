@@ -1,4 +1,3 @@
-
 .terminal-container {
   display: flex;
   align-items: center;
@@ -6,11 +5,10 @@
   min-height: 80vh;
   position: relative;
   padding: 24px;
-  font-family: var(--font-display); // Rajdhani
+  font-family: var(--font-display);
   overflow: hidden;
 }
 
-// HUD Frames
 .hud-frame {
   position: absolute;
   width: 40px;
@@ -19,14 +17,36 @@
   opacity: 0.3;
   z-index: 1;
   pointer-events: none;
-  
-  &.top-left { top: 20px; left: 20px; border-right: 0; border-bottom: 0; }
-  &.top-right { top: 20px; right: 20px; border-left: 0; border-bottom: 0; }
-  &.bottom-left { bottom: 20px; left: 20px; border-right: 0; border-top: 0; }
-  &.bottom-right { bottom: 20px; right: 20px; border-left: 0; border-top: 0; }
+
+  &.top-left {
+    top: 20px;
+    left: 20px;
+    border-right: 0;
+    border-bottom: 0;
+  }
+
+  &.top-right {
+    top: 20px;
+    right: 20px;
+    border-left: 0;
+    border-bottom: 0;
+  }
+
+  &.bottom-left {
+    bottom: 20px;
+    left: 20px;
+    border-right: 0;
+    border-top: 0;
+  }
+
+  &.bottom-right {
+    bottom: 20px;
+    right: 20px;
+    border-left: 0;
+    border-top: 0;
+  }
 }
 
-// Scanner Animation
 .scanner-gate {
   position: absolute;
   top: 0;
@@ -50,8 +70,13 @@
 }
 
 @keyframes scan {
-  0% { top: 0; }
-  100% { top: 100%; }
+  0% {
+    top: 0;
+  }
+
+  100% {
+    top: 100%;
+  }
 }
 
 .terminal-card {
@@ -64,7 +89,7 @@
   position: relative;
   z-index: 10;
   box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
-  
+
   &::after {
     content: '';
     position: absolute;
@@ -103,8 +128,13 @@
 }
 
 @keyframes pulse {
-  0% { opacity: 0.5; }
-  100% { opacity: 1; }
+  0% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
 
 .terminal-title {
@@ -122,7 +152,6 @@
   margin-top: 8px;
 }
 
-// Forms
 .input-field {
   position: relative;
   margin-bottom: 32px;
@@ -148,15 +177,14 @@ input {
   outline: none !important;
   font-family: var(--font-ui);
   transition: all 0.3s ease;
-  
+
   &:focus {
     border-bottom-color: var(--neon-blue) !important;
     text-shadow: 0 0 10px rgba(10, 207, 254, 0.5);
   }
-  
-  // Autocomplete Fix
+
   &:-webkit-autofill,
-  &:-webkit-autofill:hover, 
+  &:-webkit-autofill:hover,
   &:-webkit-autofill:focus {
     -webkit-text-fill-color: white !important;
     -webkit-box-shadow: 0 0 0px 1000px rgba(10, 10, 20, 1) inset !important;
@@ -175,7 +203,7 @@ input {
   transition: width 0.4s ease;
 }
 
-input:focus ~ .field-bar {
+input:focus~.field-bar {
   width: 100%;
 }
 
@@ -187,7 +215,10 @@ input:focus ~ .field-bar {
   border: none;
   color: var(--text-muted);
   cursor: pointer;
-  &:hover { color: white; }
+
+  &:hover {
+    color: white;
+  }
 }
 
 .auth-btn {
@@ -205,13 +236,13 @@ input:focus ~ .field-bar {
   position: relative;
   overflow: hidden;
   transition: all 0.4s ease;
-  
+
   &:hover:not(:disabled) {
     background: var(--neon-blue);
     color: black;
     box-shadow: 0 0 30px var(--neon-blue);
   }
-  
+
   &:disabled {
     opacity: 0.3;
     cursor: not-allowed;
@@ -238,16 +269,21 @@ input:focus ~ .field-bar {
   color: var(--neon-blue);
   text-decoration: none;
   font-weight: 700;
-  &:hover { text-shadow: 0 0 10px var(--neon-blue); }
+
+  &:hover {
+    text-shadow: 0 0 10px var(--neon-blue);
+  }
 }
 
 .dim-link {
   color: var(--text-muted);
   text-decoration: none;
-  &:hover { color: white; }
+
+  &:hover {
+    color: white;
+  }
 }
 
-// Decor
 .data-decor {
   position: absolute;
   bottom: 40px;
@@ -256,4 +292,39 @@ input:focus ~ .field-bar {
   color: var(--neon-blue);
   opacity: 0.2;
   font-family: monospace;
+}
+
+.login-error-msg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 16px;
+  color: var(--neon-pink);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  animation: shake 0.4s ease-in-out;
+
+  mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+}
+
+@keyframes shake {
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-5px);
+  }
+
+  75% {
+    transform: translateX(5px);
+  }
 }

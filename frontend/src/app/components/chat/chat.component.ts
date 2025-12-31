@@ -40,7 +40,6 @@ export class ChatComponent implements OnInit, OnDestroy {
       return;
     }
 
-    // Start polling for messages every 3 seconds
     this.pollSubscription = interval(3000)
       .pipe(
         startWith(0),
@@ -67,8 +66,6 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.chatService.sendMessage(this.requestId, this.newMessage).subscribe({
       next: () => {
         this.newMessage = '';
-        // Immediate refresh would be nice, but polling will catch it soon.
-        // Let's force a refresh for better UX
         this.chatService.getMessages(this.requestId).subscribe(data => {
           this.messages = data.messages;
           setTimeout(() => this.scrollToBottom(), 100);

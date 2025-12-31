@@ -1,6 +1,5 @@
 <div class="profile-dashboard fade-in" *ngIf="user">
 
-  <!-- Profile Header / Banner -->
   <div class="profile-header glass-panel">
     <div class="cover-image"></div>
 
@@ -46,7 +45,6 @@
   </div>
 
   <div class="profile-dashboard-content reveal-hidden">
-    <!-- Quick Stats -->
     <div class="stats-row">
       <div class="stat-card">
         <div class="icon-box blue">
@@ -79,11 +77,10 @@
       </div>
     </div>
 
-    <!-- Personal Information Section -->
     <div class="details-section reveal-hidden">
       <h3 class="section-title">
         <span class="material-icons-round">person_pin</span>
-        {{ 'PROFILE.REPUTATION' | translate }} <!-- Using as placeholder for Personal Info if key missing -->
+        {{ 'PROFILE.REPUTATION' | translate }} 
       </h3>
 
       <div class="info-grid">
@@ -127,3 +124,4 @@
   </div>
 
 </div>
+

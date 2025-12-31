@@ -7,7 +7,7 @@ export const pool = mysql.createPool({
   host: process.env.DB_HOST || 'localhost',
   user: process.env.DB_USER || 'root',
   password: process.env.DB_PASSWORD || '',
-  database: process.env.DB_NAME || 'neighborhood_help',
+  database: process.env.DB_NAME || 'neighbourhood_portal',
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
@@ -15,7 +15,6 @@ export const pool = mysql.createPool({
   keepAliveInitialDelay: 0
 });
 
-// Test database connection
 export const testConnection = async (): Promise<boolean> => {
   try {
     const connection = await pool.getConnection();
@@ -28,7 +27,6 @@ export const testConnection = async (): Promise<boolean> => {
   }
 };
 
-// Graceful shutdown
 process.on('SIGINT', async () => {
   try {
     await pool.end();

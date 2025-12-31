@@ -1,17 +1,14 @@
-
 <div class="terminal-container">
-  <!-- HUD Elements -->
   <div class="hud-frame top-left"></div>
   <div class="hud-frame top-right"></div>
   <div class="hud-frame bottom-left"></div>
   <div class="hud-frame bottom-right"></div>
-  
+
   <div class="scanner-gate">
     <div class="scan-line"></div>
   </div>
 
   <div class="terminal-card fade-in">
-    <!-- Terminal Header -->
     <div class="terminal-header">
       <div class="status-badge">
         <span class="pulse-dot"></span>
@@ -21,9 +18,8 @@
       <div class="auth-protocol">{{ 'AUTH.PROTOCOL_VERSION' | translate }}</div>
     </div>
 
-    <!-- Login Form -->
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="terminal-form">
-      
+
       <div class="input-field">
         <div class="field-label">{{ 'AUTH.EMAIL_LABEL' | translate }}</div>
         <input formControlName="email" type="email" spellcheck="false" autocomplete="off">
@@ -46,9 +42,13 @@
         <span class="btn-text">{{ (loading ? 'AUTH.AUTHORIZING' : 'AUTH.START_SESSION') | translate }}</span>
         <div class="btn-glitch"></div>
       </button>
+
+      <div class="login-error-msg" *ngIf="errorMessage">
+        <mat-icon>error_outline</mat-icon>
+        {{ errorMessage }}
+      </div>
     </form>
 
-    <!-- Footer Links -->
     <div class="terminal-footer">
       <div class="meta-row">
         <span>{{ 'AUTH.NEW_USER' | translate }}</span>
@@ -60,7 +60,6 @@
     </div>
   </div>
 
-  <!-- Background Data Stream Decor -->
   <div class="data-decor">
     <div class="data-col">0101110 0110 1101</div>
     <div class="data-col">SYS_READY 0xFF92</div>

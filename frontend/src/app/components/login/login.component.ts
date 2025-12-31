@@ -33,6 +33,7 @@ export class LoginComponent {
   loginForm: FormGroup;
   loading = false;
   hidePassword = true;
+  errorMessage: string | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -47,12 +48,12 @@ export class LoginComponent {
   }
 
   onSubmit() {
+    this.errorMessage = null; // Clear previous error
     if (this.loginForm.valid) {
       this.loading = true;
       this.authService.login(this.loginForm.value).subscribe({
         next: (res) => {
-          this.snackBar.open('Login successful!', 'Close', { duration: 3000 });
-          // Redirect based on role
+          this.snackBar.open('Login successful!', 'Close', { duration: 3000, verticalPosition: 'top' });
           if (res.user.role === 'Helper') {
             this.router.navigate(['/requests']);
           } else {
@@ -61,7 +62,8 @@ export class LoginComponent {
         },
         error: (err) => {
           this.loading = false;
-          this.snackBar.open(err.error?.error || 'Login failed', 'Close', { duration: 3000 });
+          // Show error inline below button instead of SnackBar
+          this.errorMessage = err.error?.error || 'Login failed. Please check your credentials.';
         }
       });
     }

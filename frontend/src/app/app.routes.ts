@@ -32,7 +32,7 @@ export const routes: Routes = [
         path: 'requests/new',
         component: HelpRequestComponent,
         canActivate: [authGuard, roleGuard],
-        data: { role: 'Resident' } // Only Residents can create
+        data: { role: 'Resident' }
     },
     {
         path: 'requests/:id',
@@ -54,3 +54,4 @@ export const routes: Routes = [
         redirectTo: ''
     }
 ];
+

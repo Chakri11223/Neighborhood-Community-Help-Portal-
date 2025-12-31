@@ -27,7 +27,6 @@ export class ProfileComponent implements OnInit {
       this.user = user;
       if (user) {
         this.editData = { ...user };
-        // Wait for DOM
         setTimeout(() => this.initScrollReveal(), 100);
       }
     });
@@ -65,7 +64,6 @@ export class ProfileComponent implements OnInit {
     this.authService.updateUser(this.user.id, this.editData).subscribe({
       next: (res) => {
         this.isEditing = false;
-        // The service tap() already updates the subject/storage
       },
       error: (err) => {
         alert('Failed to update profile: ' + (err.error?.error || 'Unknown error'));

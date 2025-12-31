@@ -1,5 +1,4 @@
 <div class="chat-container glass-panel reveal-hidden revealed">
-  <!-- Chat Header -->
   <div class="chat-header">
     <button class="icon-btn back-btn" (click)='onBack()'>
       <span class="material-icons-round">arrow_back_ios_new</span>
@@ -14,7 +13,6 @@
     </div>
   </div>
 
-  <!-- Messages List -->
   <div class="messages-list" #scrollMe>
     <div *ngFor="let msg of messages" 
          class="message-wrapper" 
@@ -30,14 +28,12 @@
       </div>
     </div>
 
-    <!-- Empty State -->
     <div class="empty-chat" *ngIf="messages.length === 0">
       <span class="material-icons-round large">forum</span>
       <p>No messages yet. Start the conversation!</p>
     </div>
   </div>
 
-  <!-- Input Area -->
   <div class="chat-input-area">
     <div class="input-wrapper glass-card">
       <input type="text" 

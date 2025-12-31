@@ -4,7 +4,6 @@ import { authenticateToken } from '../middleware/authMiddleware';
 
 const router = Router();
 
-// All chat routes require authentication
 router.use(authenticateToken);
 
 router.post('/:requestId', ChatController.sendMessage);

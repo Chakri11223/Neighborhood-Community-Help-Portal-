@@ -8,7 +8,7 @@ export interface User {
   name: string;
   email: string;
   role: 'Resident' | 'Helper' | 'Admin';
-  contact_info?: string; // Optional per requirements
+  contact_info?: string;
   location?: string;
 }
 
@@ -29,21 +29,17 @@ export class AuthService {
     this.loadUserFromStorage();
   }
 
-  // Load user from local storage on app start
   private loadUserFromStorage() {
     const user = localStorage.getItem('user');
     const token = localStorage.getItem('token');
 
-    // Only verify logged in if BOTH token and user data exist
     if (user && token) {
       try {
         this.currentUserSubject.next(JSON.parse(user));
       } catch (e) {
-        // Handle corrupted JSON
         this.logout();
       }
     } else {
-      // Clear inconsistent state silently
       this.logout(false);
     }
   }
@@ -69,7 +65,6 @@ export class AuthService {
     return this.http.put<any>(`${userUrl}/${userId}`, data).pipe(
       tap(response => {
         if (response.user) {
-          // Update local storage and behavior subject
           localStorage.setItem('user', JSON.stringify(response.user));
           this.currentUserSubject.next(response.user);
         }
@@ -105,3 +100,4 @@ export class AuthService {
     return user ? user.role === role : false;
   }
 }
+

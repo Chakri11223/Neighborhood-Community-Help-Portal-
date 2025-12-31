@@ -182,14 +182,9 @@ body::before {
 }
 
 // FORCE TRANSPARENCY for OS Window
-.window-container,
-.stage-center,
-.os-shell {
-  background: transparent !important;
-  background-color: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-}
+// FORCE TRANSPARENCY for OS Window
+// Removed completely to restore Glassmorphism
+
 
 // Force dark body
 body {

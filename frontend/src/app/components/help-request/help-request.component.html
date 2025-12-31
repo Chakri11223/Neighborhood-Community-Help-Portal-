@@ -1,7 +1,6 @@
 <div class="wizard-container fade-in">
 
   <div class="wizard-grid">
-    <!-- Left Panel: Guidance -->
     <div class="guidance-panel glass-panel">
       <div class="illustration-box">
         <span class="material-icons-round">campaign</span>
@@ -33,11 +32,9 @@
       </div>
     </div>
 
-    <!-- Right Panel: Form -->
     <div class="form-panel glass-panel">
       <form [formGroup]="requestForm" (ngSubmit)="onSubmit()">
 
-        <!-- Step 1: Category -->
         <div class="form-section">
           <label class="section-label">{{ 'POST_REQUEST.SECTION_CATEGORY' | translate }}</label>
           <div class="category-grid">
@@ -54,7 +51,6 @@
           </div>
         </div>
 
-        <!-- Step 2: Details -->
         <div class="form-section">
           <label class="section-label">{{ 'POST_REQUEST.SECTION_DETAILS' | translate }}</label>
 
@@ -70,7 +66,6 @@
           </div>
         </div>
 
-        <!-- Submit Action -->
         <div class="form-actions">
           <button type="submit" [disabled]="requestForm.invalid || loading" class="btn btn-primary btn-block">
             <span class="material-icons-round" *ngIf="!loading">send</span>

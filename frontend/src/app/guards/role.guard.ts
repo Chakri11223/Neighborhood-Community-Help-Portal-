@@ -12,7 +12,5 @@ export const roleGuard: CanActivateFn = (route, state) => {
     return true;
   }
 
-  // Redirect to requests or dashboard if unauthorized for this specific route
-  // Or show a "Not Authorized" message/page. For now redirecting to requests.
   return router.createUrlTree(['/requests']);
 };

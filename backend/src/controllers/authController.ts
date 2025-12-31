@@ -147,7 +147,6 @@ export class AuthController {
         return;
       }
 
-      // Generate new token with updated role
       const token = jwt.sign(
         { id: req.user.id, email: req.user.email, role: role },
         process.env.JWT_SECRET || 'your_jwt_secret',

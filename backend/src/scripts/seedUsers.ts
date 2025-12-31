@@ -8,7 +8,6 @@ const seedUsers = async () => {
     try {
         console.log('Starting to seed default users...');
 
-        // Hash passwords
         const adminPassword = await bcrypt.hash('admin123', 10);
         const helperPassword = await bcrypt.hash('helper123', 10);
         const residentPassword = await bcrypt.hash('resident123', 10);
@@ -40,7 +39,6 @@ const seedUsers = async () => {
             }
         ];
 
-        // Check if users already exist
         for (const user of defaultUsers) {
             const [existing]: any = await pool.query(
                 'SELECT id FROM Users WHERE email = ?',

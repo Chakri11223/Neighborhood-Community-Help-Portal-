@@ -1,5 +1,4 @@
 @import "../../../styles.scss";
-
 .chat-container {
   height: calc(100vh - 200px);
   display: flex;
@@ -14,11 +13,6 @@
   border-radius: 24px;
   box-shadow: 0 10px 40px rgba(0,0,0,0.3);
 }
-
-// ============================================
-// 📁 CHAT HEADER
-// ============================================
-
 .chat-header {
   padding: 16px 24px;
   background: rgba(255, 255, 255, 0.05);
@@ -26,7 +20,6 @@
   display: flex;
   align-items: center;
   gap: 16px;
-
   .back-btn {
     background: transparent;
     border: none;
@@ -38,16 +31,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-
     &:hover {
       background: rgba(255, 255, 255, 0.1);
       color: white;
       transform: translateX(-2px);
     }
-
     .material-icons-round { font-size: 20px; }
   }
-
   .header-info {
     flex: 1;
     .chat-title {
@@ -64,7 +54,6 @@
       font-family: monospace;
     }
   }
-
   .header-status {
     display: flex;
     align-items: center;
@@ -73,19 +62,16 @@
     padding: 4px 12px;
     border-radius: 20px;
     border: 1px solid rgba(255, 255, 255, 0.05);
-
     .status-dot {
       width: 8px;
       height: 8px;
       background: #00FF94;
       border-radius: 50%;
       box-shadow: 0 0 10px #00FF94;
-
       &.pulse {
         animation: statusPulse 2s infinite;
       }
     }
-
     .status-label {
       font-size: 0.7rem;
       font-weight: 700;
@@ -94,11 +80,6 @@
     }
   }
 }
-
-// ============================================
-// 💬 MESSAGES LIST
-// ============================================
-
 .messages-list {
   flex: 1;
   overflow-y: auto;
@@ -107,7 +88,6 @@
   flex-direction: column;
   gap: 16px;
   scroll-behavior: smooth;
-
   &::-webkit-scrollbar { width: 5px; }
   &::-webkit-scrollbar-track { background: transparent; }
   &::-webkit-scrollbar-thumb { 
@@ -116,14 +96,12 @@
     &:hover { background: rgba(255, 255, 255, 0.2); }
   }
 }
-
 .message-wrapper {
   display: flex;
   flex-direction: column;
   max-width: 80%;
   align-self: flex-start;
   animation: messageIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-
   &.self {
     align-self: flex-end;
     .message-bubble {
@@ -133,7 +111,6 @@
     .message-content { text-align: right; }
     .message-time { text-align: right; }
   }
-
   .message-meta {
     padding: 0 12px 4px;
     .sender-name {
@@ -144,7 +121,6 @@
       letter-spacing: 0.5px;
     }
   }
-
   .message-bubble {
     background: rgba(255, 255, 255, 0.05);
     padding: 12px 16px;
@@ -153,7 +129,6 @@
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     position: relative;
     overflow: hidden;
-
     &::before {
         content: '';
         position: absolute;
@@ -162,13 +137,11 @@
         pointer-events: none;
     }
   }
-
   .message-content {
     font-size: 0.95rem;
     color: white;
     line-height: 1.5;
   }
-
   .message-time {
     font-size: 0.65rem;
     color: rgba(255, 255, 255, 0.4);
@@ -176,15 +149,9 @@
     font-family: monospace;
   }
 }
-
-// ============================================
-// ⌨️ INPUT AREA
-// ============================================
-
 .chat-input-area {
   padding: 24px;
   background: rgba(0, 0, 0, 0.1);
-
   .input-wrapper {
     display: flex;
     align-items: center;
@@ -194,14 +161,12 @@
     border-radius: 16px;
     padding: 6px 16px;
     transition: all 0.3s ease;
-
     &:focus-within {
       background: rgba(255, 255, 255, 0.08);
       border-color: var(--neon-blue);
       box-shadow: 0 0 20px rgba(10, 207, 254, 0.1);
     }
   }
-
   .chat-input {
     flex: 1;
     background: transparent;
@@ -212,7 +177,6 @@
     &::placeholder { color: rgba(255, 255, 255, 0.3); }
     &:focus { outline: none; }
   }
-
   .send-btn {
     background: var(--neon-blue);
     border: none;
@@ -225,22 +189,18 @@
     justify-content: center;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-
     &:hover:not(:disabled) {
       transform: scale(1.1) rotate(5deg);
       box-shadow: 0 0 15px var(--neon-blue);
     }
-
     &:disabled {
       background: rgba(255, 255, 255, 0.1);
       color: rgba(255, 255, 255, 0.2);
       cursor: not-allowed;
     }
-
     .material-icons-round { font-size: 20px; }
   }
 }
-
 .empty-chat {
     flex: 1;
     display: flex;
@@ -250,22 +210,16 @@
     color: var(--text-muted);
     gap: 16px;
     opacity: 0.5;
-
     .material-icons-round.large { font-size: 64px; }
     p { font-size: 0.95rem; font-weight: 500; }
 }
-
-// ============================================
-// 🎭 ANIMATIONS
-// ============================================
-
 @keyframes statusPulse {
     0% { transform: scale(1); opacity: 1; }
     50% { transform: scale(1.2); opacity: 0.7; }
     100% { transform: scale(1); opacity: 1; }
 }
-
 @keyframes messageIn {
     from { opacity: 0; transform: translateY(10px) scale(0.95); }
     to { opacity: 1; transform: translateY(0) scale(1); }
 }
+

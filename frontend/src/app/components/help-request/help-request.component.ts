@@ -44,7 +44,7 @@ export class HelpRequestComponent {
       title: ['', Validators.required],
       description: ['', Validators.required],
       category: ['', Validators.required],
-      attachments: [''] // Optional
+      attachments: ['']
     });
   }
 
@@ -75,3 +75,4 @@ export class HelpRequestComponent {
     return icons[category] || 'help';
   }
 }
+

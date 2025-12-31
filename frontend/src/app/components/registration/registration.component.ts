@@ -33,7 +33,7 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class RegistrationComponent {
   registrationForm: FormGroup;
-  roles = ['Resident', 'Helper']; // Admin usually not self-registered in public apps, but requirements allowed it? Requirement: "Role selection (Resident / Helper)"
+  roles = ['Resident', 'Helper'];
   loading = false;
   hidePassword = true;
 
@@ -71,3 +71,4 @@ export class RegistrationComponent {
     }
   }
 }
+

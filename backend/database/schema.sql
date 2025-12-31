@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS neighborhood_help;
-USE neighborhood_help;
+CREATE DATABASE IF NOT EXISTS neighbourhood_portal;
+USE neighbourhood_portal;
 
 DROP TABLE IF EXISTS HelpRequests;
 DROP TABLE IF EXISTS Users;

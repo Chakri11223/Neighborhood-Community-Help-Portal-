@@ -35,7 +35,6 @@ export class AppComponent {
     public router: Router,
     public translate: TranslateService
   ) {
-    // Localization Initialization
     const savedLang = localStorage.getItem('locale') || 'en';
     this.translate.addLangs(['en', 'te', 'ta']);
     this.translate.setDefaultLang('en');

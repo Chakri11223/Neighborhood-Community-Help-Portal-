@@ -1,27 +1,20 @@
-// Request List - Dark Mode
-
 .requests-dashboard {
   max-width: 1400px;
   margin: 0 auto;
 }
-
-// 1. Header & Filters
 .dashboard-header {
   margin-bottom: 40px;
-
   .header-content {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
     margin-bottom: 32px;
-
     @media (max-width: 768px) {
       flex-direction: column;
       align-items: flex-start;
       gap: 16px;
     }
   }
-
   .page-title {
     font-size: 3rem;
     margin-bottom: 8px;
@@ -30,7 +23,6 @@
     text-transform: uppercase;
     font-weight: 800;
   }
-
   .page-subtitle {
     color: var(--text-muted);
     font-size: 0.9rem;
@@ -38,7 +30,6 @@
     text-transform: uppercase;
     opacity: 0.8;
   }
-
   .btn-glow {
     height: 48px;
     padding: 0 24px;
@@ -56,13 +47,9 @@
     position: relative;
     overflow: hidden;
     color: white;
-
-    // Elegant Gradient
     background: linear-gradient(135deg, var(--neon-blue) 0%, var(--neon-purple) 100%);
     box-shadow: 0 8px 20px rgba(10, 207, 254, 0.3);
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-
-    // Shine Effect
     &::after {
       content: '';
       position: absolute;
@@ -73,23 +60,19 @@
       background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
       transition: 0.5s;
     }
-
     &:hover {
       transform: translateY(-4px) scale(1.05);
       box-shadow: 0 15px 30px rgba(10, 207, 254, 0.4);
-
       &::after {
         left: 100%;
       }
     }
-
     &:active {
       transform: translateY(-1px);
       box-shadow: 0 5px 10px rgba(10, 207, 254, 0.2);
     }
   }
 }
-
 .filter-bar {
   display: flex;
   align-items: center;
@@ -98,7 +81,6 @@
   background: rgba(255, 255, 255, 0.03);
   border: var(--glass-border);
   border-radius: 16px;
-
   .search-input {
     flex: 1;
     display: flex;
@@ -107,11 +89,9 @@
     padding: 0 16px;
     height: 48px;
     border-right: 1px solid rgba(255, 255, 255, 0.1);
-
     .material-icons-round {
       color: var(--text-muted);
     }
-
     input {
       border: none;
       background: transparent;
@@ -121,18 +101,15 @@
       font-family: var(--font-ui);
       outline: none;
       color: white;
-
       &::placeholder {
         color: rgba(255, 255, 255, 0.3);
       }
     }
   }
-
   .filter-pills {
     display: flex;
     gap: 8px;
     padding-right: 8px;
-
     .pill {
       border: 1px solid rgba(255, 255, 255, 0.1);
       background: rgba(255, 255, 255, 0.05);
@@ -142,12 +119,10 @@
       color: var(--text-muted);
       cursor: pointer;
       transition: all 0.2s;
-
       &:hover {
         background: rgba(255, 255, 255, 0.1);
         color: white;
       }
-
       &.active {
         background: var(--text-main);
         color: black;
@@ -155,13 +130,11 @@
       }
     }
   }
-
   @media (max-width: 768px) {
     flex-direction: column;
     padding: 16px;
     align-items: stretch;
     background: var(--glass-card);
-
     .search-input {
       border-right: none;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -169,15 +142,12 @@
     }
   }
 }
-
-// 2. Masonry Grid
 .masonry-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 24px;
   padding-bottom: 40px;
 }
-
 .request-card {
   position: relative;
   border-radius: 20px;
@@ -188,14 +158,12 @@
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   flex-direction: column;
-
   &:hover {
     transform: translateY(-8px);
     background: var(--glass-card-hover);
     border-color: var(--neon-blue);
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
   }
-
   .card-icon-wrapper {
     width: 48px;
     height: 48px;
@@ -204,42 +172,35 @@
     align-items: center;
     justify-content: center;
     margin-bottom: 20px;
-
     .material-icons-round {
       color: white;
       font-size: 24px;
     }
-
     &.blue {
       background: rgba(10, 207, 254, 0.2);
       color: var(--neon-blue);
       border: 1px solid var(--neon-blue);
     }
-
     &.purple {
       background: rgba(189, 0, 255, 0.2);
       color: var(--neon-purple);
       border: 1px solid var(--neon-purple);
     }
-
     &.orange {
       background: rgba(255, 85, 0, 0.2);
       color: #FF5500;
       border: 1px solid #FF5500;
     }
-
-    background: rgba(255, 255, 255, 0.1); // Fallback
+    background: rgba(255, 255, 255, 0.1); 
   }
-
   .card-top-actions {
     position: absolute;
     top: 24px;
     right: 24px;
     display: flex;
     align-items: center;
-    gap: 12px; // Space between delete icon and status badge
+    gap: 12px; 
     z-index: 2;
-
     .delete-icon-btn {
       background: rgba(255, 23, 68, 0.1);
       border: 1px solid rgba(255, 23, 68, 0.3);
@@ -252,23 +213,19 @@
       color: #ff1744;
       cursor: pointer;
       transition: all 0.2s;
-      padding: 0; // Reset button padding
-
+      padding: 0; 
       &:hover {
         background: #ff1744;
         color: white;
         transform: scale(1.1);
         box-shadow: 0 0 10px rgba(255, 23, 68, 0.4);
       }
-
       .material-icons-round {
         font-size: 18px;
       }
     }
   }
-
   .status-badge {
-    // Position removed, now flex item
     display: flex;
     align-items: center;
     gap: 6px;
@@ -280,7 +237,6 @@
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
     color: var(--text-muted);
-
     .dot {
       width: 6px;
       height: 6px;
@@ -288,24 +244,19 @@
       background: currentColor;
       box-shadow: 0 0 5px currentColor;
     }
-
     &.pending {
       color: var(--neon-gold);
     }
-
     &.in-progress {
       color: var(--neon-blue);
     }
-
     &.completed {
       color: #00FF9D;
     }
   }
-
   .card-content {
     flex: 1;
     margin-bottom: 24px;
-
     .card-title {
       font-size: 1.4rem;
       margin-bottom: 12px;
@@ -316,18 +267,15 @@
       letter-spacing: 1px;
       font-weight: 700;
     }
-
     .card-desc {
       font-size: 0.95rem;
       color: var(--text-muted);
       line-height: 1.6;
       margin-bottom: 20px;
     }
-
     .meta-row {
       display: flex;
       gap: 16px;
-
       .meta-item {
         display: flex;
         align-items: center;
@@ -335,7 +283,6 @@
         font-size: 0.85rem;
         color: var(--text-muted);
         font-weight: 500;
-
         .material-icons-round {
           font-size: 16px;
           color: var(--text-muted);
@@ -343,19 +290,16 @@
       }
     }
   }
-
   .card-footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding-top: 20px;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
-
     .user-info {
       display: flex;
       align-items: center;
       gap: 8px;
-
       .avatar-mini {
         width: 24px;
         height: 24px;
@@ -368,18 +312,15 @@
         align-items: center;
         justify-content: center;
       }
-
       .username {
         font-size: 0.85rem;
         color: var(--text-muted);
       }
     }
-
     .actions-wrapper {
       display: flex;
       gap: 8px;
     }
-
     .action-btn {
       display: flex;
       align-items: center;
@@ -393,32 +334,25 @@
       font-size: 0.9rem;
       cursor: pointer;
       transition: all 0.2s;
-
       &:hover {
         background: rgba(10, 207, 254, 0.1);
         border-color: var(--neon-blue);
         box-shadow: 0 0 15px rgba(10, 207, 254, 0.2);
-
-        // Fix for icon hover transform
         .material-icons-round {
           transform: translateX(2px);
         }
       }
-
       .material-icons-round {
         font-size: 18px;
         transition: transform 0.2s;
       }
-
       &.delete-btn {
-        color: #ff1744; // Neon Red
+        color: #ff1744; 
         border-color: rgba(255, 23, 68, 0.3);
-
         &:hover {
           background: rgba(255, 23, 68, 0.1);
           border-color: #ff1744;
           box-shadow: 0 0 15px rgba(255, 23, 68, 0.2);
-
           .material-icons-round {
             transform: scale(1.1);
           }
@@ -427,12 +361,9 @@
     }
   }
 }
-
-// 3. States
 .empty-state {
   text-align: center;
   padding: 80px 0;
-
   .empty-icon {
     width: 80px;
     height: 80px;
@@ -442,41 +373,35 @@
     margin: 0 auto 24px;
     background: rgba(255, 255, 255, 0.05);
     border-radius: 50%;
-
     .material-icons-round {
       font-size: 40px;
       color: var(--text-muted);
     }
   }
-
   h3 {
     font-size: 1.5rem;
     margin-bottom: 8px;
     color: white;
   }
-
   p {
     color: var(--text-muted);
   }
 }
-
 .skeleton-card {
   height: 300px;
   border-radius: 20px;
   background: rgba(255, 255, 255, 0.05);
   animation: pulse 1.5s infinite ease-in-out;
 }
-
 @keyframes pulse {
   0% {
     opacity: 1;
   }
-
   50% {
     opacity: 0.5;
   }
-
   100% {
     opacity: 1;
   }
 }
+

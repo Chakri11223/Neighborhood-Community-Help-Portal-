@@ -1,21 +1,15 @@
-// ============================================
-// 🎭 REVEAL ANIMATIONS
-// ============================================
-
 .reveal-hidden {
   opacity: 0;
   transform: translateY(30px) scale(0.98);
   filter: blur(10px);
   transition: all 1s cubic-bezier(0.16, 1, 0.38, 1);
   will-change: transform, opacity, filter;
-
   &.revealed {
     opacity: 1;
     transform: translateY(0) scale(1);
     filter: blur(0);
   }
 }
-
 .edit-input {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -25,14 +19,12 @@
   font-family: inherit;
   width: 100%;
   transition: all 0.3s ease;
-
   &:focus {
     outline: none;
     border-color: var(--neon-blue);
     background: rgba(10, 207, 254, 0.05);
     box-shadow: 0 0 15px rgba(10, 207, 254, 0.1);
   }
-
   &.username-input {
     font-size: 2rem;
     font-family: var(--font-display);
@@ -40,22 +32,15 @@
     margin-bottom: 8px;
     height: auto;
   }
-
   &.detail-input {
     margin-top: 4px;
   }
 }
-
 .profile-dashboard {
   padding: 20px 24px 140px;
   max-width: 1100px;
   margin: 0 auto;
 }
-
-// ============================================
-// 📁 PROFILE HEADER (Holographic ID)
-// ============================================
-
 .profile-header {
   position: relative;
   background: var(--glass-card);
@@ -66,14 +51,12 @@
   margin-bottom: 32px;
   box-shadow: 0 20px 50px rgba(0,0,0,0.4);
 }
-
 .cover-image {
   height: 140px;
   background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
   opacity: 0.15;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   position: relative;
-  
   &::after {
     content: '';
     position: absolute;
@@ -81,7 +64,6 @@
     background: repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(255, 255, 255, 0.05) 1px, rgba(255, 255, 255, 0.05) 2px);
   }
 }
-
 .profile-identity {
   padding: 0 48px 48px;
   display: flex;
@@ -89,7 +71,6 @@
   gap: 32px;
   margin-top: -60px;
   position: relative;
-  
   @media (max-width: 768px) {
     flex-direction: column;
     align-items: center;
@@ -97,10 +78,8 @@
     margin-top: -50px;
   }
 }
-
 .avatar-wrapper {
   position: relative;
-  
   .avatar {
     width: 140px;
     height: 140px;
@@ -118,7 +97,6 @@
     background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
     text-shadow: 0 0 20px rgba(255,255,255,0.4);
   }
-  
   .status-indicator {
     position: absolute;
     bottom: 10px;
@@ -131,11 +109,9 @@
     box-shadow: 0 0 15px #00FF94;
   }
 }
-
 .identity-text {
   flex: 1;
   padding-bottom: 8px;
-  
   .username {
     font-size: 3.5rem;
     font-weight: 800;
@@ -149,15 +125,12 @@
     -webkit-text-fill-color: transparent;
     animation: shine 8s linear infinite;
   }
-  
   .badges {
     display: flex;
     gap: 12px;
-    
     @media (max-width: 768px) { justify-content: center; }
   }
 }
-
 .role-badge {
   background: rgba(10, 207, 254, 0.1);
   color: var(--neon-blue);
@@ -168,10 +141,8 @@
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
-  
   &.helper { color: var(--neon-purple); border-color: rgba(189, 0, 255, 0.3); background: rgba(189, 0, 255, 0.1); }
 }
-
 .id-badge {
   background: rgba(255, 255, 255, 0.05);
   color: var(--text-muted);
@@ -180,12 +151,10 @@
   font-size: 0.75rem;
   font-family: monospace;
 }
-
 .header-actions {
   display: flex;
   gap: 12px;
   padding-bottom: 12px;
-  
   .btn {
     height: 48px;
     padding: 0 24px;
@@ -197,20 +166,13 @@
     font-size: 0.95rem;
   }
 }
-
-// ============================================
-// 📊 STATS CARDS
-// ============================================
-
 .stats-row {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
   margin-bottom: 32px;
-  
   @media (max-width: 900px) { grid-template-columns: 1fr; }
 }
-
 .stat-card {
   padding: 24px;
   display: flex;
@@ -221,13 +183,11 @@
   border: var(--glass-border);
   border-radius: 24px;
   transition: all 0.3s ease;
-  
   &:hover {
     transform: translateY(-5px);
     border-color: rgba(255,255,255,0.2);
     background: var(--glass-card-hover);
   }
-  
   .icon-box {
     width: 60px;
     height: 60px;
@@ -238,25 +198,17 @@
     color: white;
     font-size: 28px;
     box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-    
     &.blue { background: linear-gradient(135deg, #0ACFFE 0%, #495AFF 100%); }
     &.purple { background: linear-gradient(135deg, #b721ff 0%, #21d4fd 100%); }
     &.orange { background: linear-gradient(135deg, #FF9900 0%, #FFCC33 100%); }
   }
-  
   .stat-info {
     display: flex;
     flex-direction: column;
-    
     .value { font-size: 2rem; font-weight: 800; color: white; line-height: 1.2; font-family: var(--font-display); }
     .label { font-size: 0.85rem; color: var(--text-muted); font-weight: 600; margin-top: 8px; }
   }
 }
-
-// ============================================
-// 📄 DETAILS SECTION
-// ============================================
-
 .details-section {
   padding: 48px;
   background: var(--glass-card);
@@ -264,7 +216,6 @@
   border: var(--glass-border);
   border-radius: 32px;
 }
-
 .section-title {
   font-size: 1.5rem;
   font-weight: 800;
@@ -276,7 +227,6 @@
   display: flex;
   align-items: center;
   gap: 16px;
-  
   &::after {
     content: '';
     flex: 1;
@@ -284,15 +234,12 @@
     background: linear-gradient(to right, rgba(10, 207, 254, 0.3), transparent);
   }
 }
-
 .info-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 40px;
-  
   @media (max-width: 768px) { grid-template-columns: 1fr; }
 }
-
 .info-group {
   label {
     display: block;
@@ -304,7 +251,6 @@
     margin-bottom: 12px;
   }
 }
-
 .value-box {
   display: flex;
   align-items: center;
@@ -312,10 +258,10 @@
   font-size: 1.15rem;
   color: white;
   font-weight: 500;
-  
   .material-icons-round {
     color: var(--neon-blue);
     font-size: 22px;
     opacity: 0.8;
   }
 }
+

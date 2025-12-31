@@ -91,7 +91,7 @@ export class RequestListComponent implements OnInit {
       case 'Pending': return 'warn';
       case 'Accepted': return 'accent';
       case 'In-progress': return 'primary';
-      case 'Completed': return 'primary'; // or custom green
+      case 'Completed': return 'primary';
       default: return '';
     }
   }
@@ -104,7 +104,6 @@ export class RequestListComponent implements OnInit {
     if (confirm('Are you sure you want to delete this request?')) {
       this.requestService.deleteRequest(req.id).subscribe({
         next: () => {
-          // Remove from list
           this.allRequests = this.allRequests.filter(r => r.id !== req.id);
           this.applyFilter();
         },
@@ -133,3 +132,4 @@ export class RequestListComponent implements OnInit {
     return 'orange';
   }
 }
+
